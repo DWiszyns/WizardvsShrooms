@@ -7,14 +7,15 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-    private MainMenu myMenu=new MainMenu();
-    private GameScene myGame=new GameScene();
+    private SceneManager myManager;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Scene root = new Scene( myMenu.createContent());
+        /*Scene root = new Scene(SceneManager.getInstance().);
         primaryStage.setTitle("Wizard vs Shrooms");
-        primaryStage.setScene(root);
+        primaryStage.setScene(root); */
+        primaryStage=myManager.getInstance().getStage();
+
         primaryStage.show();
     }
 

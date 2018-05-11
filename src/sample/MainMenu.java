@@ -1,26 +1,30 @@
 package sample;
 
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.text.Font;
 
+import static sample.SceneManager.currScene.*;
+
 import static java.lang.System.exit;
 
-public class MainMenu {
+public class MainMenu extends Scene{
     private AnchorPane myPane;
     private Button newGame;
     private Button loadGame;
     private Button settings;
     private Button exitButton;
     private Label myLabel;
-    private GameScene myGame=new GameScene();
+    private GameScene myGame;
 
 
     public MainMenu(){
-        myPane = new AnchorPane();
+        super(new AnchorPane());
+        myPane = (AnchorPane) this.getRoot();
         myPane.setPrefSize(600,600);
         myPane.setBlendMode(BlendMode.EXCLUSION);
         myPane.setStyle("-fx-backgorund-color: #FFFFFF;");
@@ -31,7 +35,7 @@ public class MainMenu {
         myLabel.setLayoutY(135.0);
 
         newGame = new Button("New Game");
-        newGame.setOnAction(e->changeScene());
+        newGame.setOnAction(e -> SceneManager.getInstance().changeScene(Game));
         newGame.setLayoutX(260.0);
         newGame.setLayoutY(205.0);
         newGame.setPrefSize(80.0,25.0);
