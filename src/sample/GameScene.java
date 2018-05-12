@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 
+import javax.management.timer.TimerNotification;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,6 @@ public class GameScene extends Scene {
         super(new AnchorPane());
         myPane = (AnchorPane) getRoot();
         myPane.setPrefSize(600,600);
-        myPlayer= new Player();
         Image image = new Image("sample/Full-Background.png");
         background = new ImageView(image);
         background.setFitHeight(600);
@@ -37,17 +38,48 @@ public class GameScene extends Scene {
         myPlayer.getViewOfMyPlayer().setTranslateY(myPlayer.getY());//ustawiamy wspolrzedne bohatera
         myPlayer.getViewOfMyPlayer().setTranslateX(myPlayer.getX());
         myPane.getChildren().add(myPlayer.getViewOfMyPlayer());
-        this.setEventHandler(KeyEvent.KEY_PRESSED,myPressedKeyHandler); //moj EventHandler
+        //myPane.setOnKeyPressed(myPressedKeyHandler);
         //jego definicja
         myPressedKeyHandler= event -> {
-            if(event.getCode()== KeyCode.D)
-            {
-                myPlayer.setX(myPlayer.getX()+1.0);
-                System.out.println("Czemu nie dziala?");
-                //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);
+            if(event.getEventType()==KeyEvent.KEY_PRESSED) {
+                if (event.getCode() == KeyCode.D) {
+                    //myPlayer.setX(myPlayer.getX() + 1.0);
+                    //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);
+                    myPlayer.setVelocity(1,0);
+                }
+                if (event.getCode() == KeyCode.A) {
+                    //myPlayer.setX(myPlayer.getX() - 1.0);
+                    myPlayer.setVelocity(-1,0);
+                    //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);d
+                }
+                if(event.getCode()==KeyCode.SPACE && !myPlayer.isJumping())
+                {
+                    myPlayer.setJumping(true);
+                   // myPlayer.jumpTimer.start();
+                    myPlayer.jump();
+                }
             }
-        };
+            if(event.getEventType()==KeyEvent.KEY_RELEASED) {
+                if (event.getCode() == KeyCode.D) {
+                    //myPlayer.setX(myPlayer.getX() + 1.0);
+                    //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);
+                    myPlayer.setVelocity(0,0);
+                }
+                if (event.getCode() == KeyCode.A) {
+                    //myPlayer.setX(myPlayer.getX() - 1.0);
+                    myPlayer.setVelocity(0,0);
+                    //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);
+                }
+            }
 
+        };
+        this.setEventHandler(KeyEvent.ANY,myPressedKeyHandler); //moj EventHandler
+
+    }
+
+    public Player getMyPlayer()
+    {
+        return getMyPlayer();
     }
 
     public AnchorPane startTheGame()

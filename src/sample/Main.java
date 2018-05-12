@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     private SceneManager myManager;
+    private Object lock = new Object();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -15,8 +16,8 @@ public class Main extends Application {
         primaryStage.setTitle("Wizard vs Shrooms");
         primaryStage.setScene(root); */
         primaryStage=myManager.getInstance().getStage();
-
         primaryStage.show();
+        Thread.sleep(1000);
     }
 
 
