@@ -44,13 +44,11 @@ public class GameScene extends Scene {
             if(event.getEventType()==KeyEvent.KEY_PRESSED) {
                 if (event.getCode() == KeyCode.D) {
                     //myPlayer.setX(myPlayer.getX() + 1.0);
-                    //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);
-                    myPlayer.setVelocity(1,0);
+                    myPlayer.setVelocity(1,0); //ustawiamy ruch w lewo
                 }
                 if (event.getCode() == KeyCode.A) {
                     //myPlayer.setX(myPlayer.getX() - 1.0);
-                    myPlayer.setVelocity(-1,0);
-                    //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);d
+                    myPlayer.setVelocity(-1,0);//ustawiamy ruch w prawo
                 }
                 if(event.getCode()==KeyCode.SPACE && !myPlayer.isJumping())
                 {
@@ -64,10 +62,12 @@ public class GameScene extends Scene {
                     //myPlayer.setX(myPlayer.getX() + 1.0);
                     //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);
                     myPlayer.setVelocity(0,0);
+                    myPlayer.getViewOfMyPlayer().setViewport(myPlayer.getImageCells(0));
                 }
                 if (event.getCode() == KeyCode.A) {
                     //myPlayer.setX(myPlayer.getX() - 1.0);
                     myPlayer.setVelocity(0,0);
+                    myPlayer.getViewOfMyPlayer().setViewport(myPlayer.getImageCells(0));
                     //SceneManager.getInstance().changeScene(SceneManager.currScene.Game);
                 }
             }

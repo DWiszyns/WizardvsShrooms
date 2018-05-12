@@ -19,16 +19,22 @@ public class Player {
     private double y;
     private boolean jumping;
     private int jumpingFrameIndex;
-    public AnimationTimer myTimer = new AnimationTimer() {
+    private int timeFrame;
+    public AnimationTimer myTimer = new AnimationTimer() { //obsluguje skoki, ruch, zmiane animacji
         @Override
         public void handle(long now) {
             x+=velocity.getX();
             y+=velocity.getY();
             viewOfMyPlayer.setTranslateX(x);
             viewOfMyPlayer.setTranslateY(y);
+            timeFrame=(timeFrame+1)%10;
             if(isJumping())
             {
                 jump();
+            }
+            if(velocity.getX()>0 && !jumping && timeFrame==0 )
+            {
+                viewOfMyPlayer.setViewport(imageCells[((int)x+1)%4]);
             }
 
         }
@@ -61,6 +67,7 @@ public class Player {
         jumping=false;
         jumpingFrameIndex=0;
         myTimer.start();
+        timeFrame=0;
     }
 
     public ImageView getViewOfMyPlayer() {
@@ -71,13 +78,11 @@ public class Player {
     {
         x=newX;
         viewOfMyPlayer.setX(x);
-        if(!jumping)viewOfMyPlayer.setViewport(imageCells[((int)x+1)%4]);
 
     }
 
     public void setY(double newY)
     {
-        double oldY=y;
         y=newY;
         viewOfMyPlayer.setY(y);
 
@@ -127,7 +132,10 @@ public class Player {
             System.out.println(x+" "+y+" "+jumpingFrameIndex);
             viewOfMyPlayer.setViewport(imageCells[0]);
             jumpingFrameIndex=0;
-
+        }
     }
+
+    public Rectangle2D getImageCells(int i) {
+        return imageCells[i];
     }
 }
