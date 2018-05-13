@@ -22,7 +22,7 @@ public class Platform implements Collidable{
     {
         zdjecie = new Rectangle2D(0,1336,200,200);
         x=300.0;
-        y=460.0;
+        y=470.0;
         width=100.0;
         height=30.0;
         viewOfMyPlatform.setViewport(zdjecie);

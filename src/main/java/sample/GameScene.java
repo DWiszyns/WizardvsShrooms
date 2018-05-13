@@ -29,21 +29,22 @@ public class GameScene extends Scene {
     private AnimationTimer collisionTimer = new AnimationTimer() { //timer obslugujacy kolizje oraz ruch bohatera
         @Override
         public void handle(long now) {
-            boolean colliding=false;
+            boolean collidingwithPlatform=false;
+            Collidable.typeOfCollision x;
            for(int i=0;i<platforms.size();++i) //sprawdzamy czy nasz gracz koliduja z jakakolwiek platforma
             {
-                if(myPlayer.isColliding(platforms.get(i))==UP)
+                if((x=myPlayer.isColliding(platforms.get(i)))!=NO)
                 {
-                    System.out.println("KOLIDUJE");
+                    System.out.println(myPlayer.getX()+" "+myPlayer.getY());
                     myPlayer.setVelocity(myPlayer.getVelocity().getX(),0);
                     myPlayer.setJumping(false);
                     myPlayer.setJumpingFrameIndex(0);
-                    colliding=true;
+                    collidingwithPlatform=true;
                 }
             }
-            if(!colliding && myPlayer.getY()<440 && !myPlayer.isJumping()) myPlayer.setVelocity(myPlayer.getVelocity().getX(),myPlayer.getVelocity().getY()+1);
-            if(!colliding && myPlayer.getY()>=440 && !myPlayer.isJumping()) colliding=true;
-            myPlayer.update(colliding);
+            if(!collidingwithPlatform && myPlayer.getY()<440 && !myPlayer.isJumping()) myPlayer.setVelocity(myPlayer.getVelocity().getX(),myPlayer.getVelocity().getY()+1);
+            if(!collidingwithPlatform && myPlayer.getY()>=440 && !myPlayer.isJumping()) collidingwithPlatform=true;
+            myPlayer.update(collidingwithPlatform);
         }
     };
 

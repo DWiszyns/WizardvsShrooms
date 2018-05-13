@@ -148,12 +148,13 @@ public class Player implements Collidable {
             jumpingFrameIndex=0;
         }
     }
+
     public typeOfCollision isColliding(Collidable other)
     {
         if(x+cellWidth>=other.getX() && x+cellWidth <= other.getX()+other.getWidth())  //sprawdzamy czy x
         {
             if(y+cellHeight<=other.getY() && y+cellHeight>other.getY()+other.getHeight()) return UP;
-            else if(y+cellHeight<=other.getY() && y<other.getY()+other.getHeight() ) return DOWN;
+            else if(y+cellHeight<=other.getY() && y < other.getY()+other.getHeight() ) return DOWN;
             else return SIDE;
         }
         else return NO;
@@ -162,6 +163,7 @@ public class Player implements Collidable {
 
     public void update(boolean colliding)//obsluguje skoki, ruch, zmiane animacji
     {
+        if(velocity.getY()!=0 && colliding) {setVelocity(velocity.getX(),0); setJumping(false);}
         x+=velocity.getX();
         y+=velocity.getY();
         viewOfMyPlayer.setTranslateX(x);
@@ -175,7 +177,6 @@ public class Player implements Collidable {
         {
             viewOfMyPlayer.setViewport(imageCells[((int)x+1)%4]);
         }
-        if(velocity.getY()!=0 && !jumping && colliding) setVelocity(velocity.getX(),0);
     }
     public void setJumpingFrameIndex(int i)
     {

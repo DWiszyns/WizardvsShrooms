@@ -17,7 +17,7 @@ public class Main extends Application {
         primaryStage.setScene(root); */
         primaryStage=myManager.getInstance().getStage();
         primaryStage.show();
-        Thread.sleep(1000);
+        //Thread.sleep(1000);
     }
 
 
