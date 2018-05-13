@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -20,7 +21,7 @@ public class Player {
     private boolean jumping;
     private int jumpingFrameIndex;
     private int timeFrame;
-    public AnimationTimer myTimer = new AnimationTimer() { //obsluguje skoki, ruch, zmiane animacji
+   /* public AnimationTimer myTimer = new AnimationTimer() { //obsluguje skoki, ruch, zmiane animacji
         @Override
         public void handle(long now) {
             x+=velocity.getX();
@@ -38,14 +39,15 @@ public class Player {
             }
 
         }
-    };
+    }; */
 
     public Player()
     {
-        Image image = new Image("sample/pelnaanimacja.png");
+        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("pelnaanimacja.png"));
         //viewOfMyPlayer=new ImageView(image);
         x=-1;
-        y=440; //wspolrzedne, zeby stal na ziemi
+        //y=440; //wspolrzedne, zeby stal na ziemi
+        y=440;
         cellWidth= 20;
         cellHeight= 35;
         //inincjalizujemy tablice klatek, z powodu roznych wielkosci obrazkow, wpisuje po kolei
@@ -63,10 +65,10 @@ public class Player {
         viewOfMyPlayer.setViewport(imageCells[0]);
         viewOfMyPlayer.setImage(image);
         viewOfMyPlayer.setFitWidth(60.0);
-        viewOfMyPlayer.setFitHeight(102.0);
+        viewOfMyPlayer.setFitHeight(105.0);
         jumping=false;
         jumpingFrameIndex=0;
-        myTimer.start();
+        //myTimer.start();
         timeFrame=0;
     }
 
@@ -116,23 +118,49 @@ public class Player {
 
     public void jump ()
     {
-        if(jumpingFrameIndex==0) setVelocity(getVelocity().getX()+0,getVelocity().getY()+(-1));
+        if(jumpingFrameIndex==0) setVelocity(getVelocity().getX()+0,getVelocity().getY()+(-4));
         if(jumpingFrameIndex<19) { viewOfMyPlayer.setViewport(imageCells[4]); System.out.println(x+" "+y+" "+jumpingFrameIndex);}
-        if(jumpingFrameIndex==19) {setVelocity(getVelocity().getX(),getVelocity().getY()+1); viewOfMyPlayer.setViewport(imageCells[5]); System.out.println(x+" "+y+" "+jumpingFrameIndex);}
+        if(jumpingFrameIndex==19) {setVelocity(getVelocity().getX(),getVelocity().getY()+4); viewOfMyPlayer.setViewport(imageCells[5]); System.out.println(x+" "+y+" "+jumpingFrameIndex);}
         if(jumpingFrameIndex==20) {viewOfMyPlayer.setViewport(imageCells[6]); System.out.println(x+" "+y+" "+jumpingFrameIndex);}
+        if(jumpingFrameIndex==21) setVelocity(getVelocity().getX(),getVelocity().getY()+4);
         if(jumpingFrameIndex>20&&jumpingFrameIndex<40) {
-            if(jumpingFrameIndex==21) setVelocity(getVelocity().getX(),getVelocity().getY()+1);
             viewOfMyPlayer.setViewport(imageCells[7]);
             System.out.println(x+" "+y+" "+jumpingFrameIndex);
         }
         if(jumpingFrameIndex!=40) ++jumpingFrameIndex;
         else {
-            setVelocity(getVelocity().getX(),getVelocity().getY()-1);
+            setVelocity(getVelocity().getX(),0);
             setJumping(false);
             System.out.println(x+" "+y+" "+jumpingFrameIndex);
             viewOfMyPlayer.setViewport(imageCells[0]);
             jumpingFrameIndex=0;
         }
+    }
+    public boolean isColliding(Platform x)
+    {
+        return x.getViewOfMyPlatform().getBoundsInParent().intersects(x.getViewOfMyPlatform().getBoundsInLocal());
+    }
+
+    public void update(boolean colliding)//obsluguje skoki, ruch, zmiane animacji
+    {
+        x+=velocity.getX();
+        y+=velocity.getY();
+        viewOfMyPlayer.setTranslateX(x);
+        viewOfMyPlayer.setTranslateY(y);
+        timeFrame=(timeFrame+1)%10;
+        if(isJumping())
+        {
+            jump();
+        }
+        if(velocity.getX()!=0 && !jumping && timeFrame==0 )
+        {
+            viewOfMyPlayer.setViewport(imageCells[((int)x+1)%4]);
+        }
+        if(velocity.getY()!=0 && !jumping && colliding) setVelocity(velocity.getX(),0);
+    }
+    public void setJumpingFrameIndex(int i)
+    {
+        jumpingFrameIndex=i;
     }
 
     public Rectangle2D getImageCells(int i) {

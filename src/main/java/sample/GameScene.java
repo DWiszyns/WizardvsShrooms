@@ -22,14 +22,35 @@ public class GameScene extends Scene {
     private AnchorPane myPane;
     private ImageView background;
     private List<Enemy> enemies = new ArrayList<Enemy>();
+    private List<Platform> platforms = new ArrayList<Platform>();
     private EventHandler<KeyEvent> myPressedKeyHandler;
+    private AnimationTimer collisionTimer = new AnimationTimer() {
+        @Override
+        public void handle(long now) {
+            boolean colliding=false;
+            for(int i=0;i<platforms.size();++i)
+            {
+                if(myPlayer.isColliding(platforms.get(i)))
+                {
+                    System.out.println("KOLIDUJE");
+                    myPlayer.setVelocity(myPlayer.getVelocity().getX(),0);
+                    myPlayer.setJumping(false);
+                    myPlayer.setJumpingFrameIndex(0);
+                    colliding=true;
+                }
+            }
+            if(!colliding && myPlayer.getY()<440 && !myPlayer.isJumping()) myPlayer.setVelocity(myPlayer.getVelocity().getX(),myPlayer.getVelocity().getY()+1);
+            if(!colliding && myPlayer.getY()>=440 && !myPlayer.isJumping()) colliding=true;
+            myPlayer.update(colliding);
+        }
+    };
 
     public GameScene()
     {
         super(new AnchorPane());
         myPane = (AnchorPane) getRoot();
         myPane.setPrefSize(600,600);
-        Image image = new Image("sample/Full-Background.png");
+        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("Full-Background.png"));
         background = new ImageView(image);
         background.setFitHeight(600);
         background.setFitWidth(600);
@@ -38,6 +59,8 @@ public class GameScene extends Scene {
         myPlayer.getViewOfMyPlayer().setTranslateY(myPlayer.getY());//ustawiamy wspolrzedne bohatera
         myPlayer.getViewOfMyPlayer().setTranslateX(myPlayer.getX());
         myPane.getChildren().add(myPlayer.getViewOfMyPlayer());
+        platforms.add(new Platform());
+        myPane.getChildren().add(platforms.get(0).getViewOfMyPlatform());
         //myPane.setOnKeyPressed(myPressedKeyHandler);
         //jego definicja
         myPressedKeyHandler= event -> {
@@ -74,6 +97,7 @@ public class GameScene extends Scene {
 
         };
         this.setEventHandler(KeyEvent.ANY,myPressedKeyHandler); //moj EventHandler
+        collisionTimer.start();
 
     }
 
