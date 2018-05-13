@@ -7,9 +7,11 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.*;
 import javafx.scene.layout.Pane;
+import static sample.Collidable.typeOfCollision.*;
 
 
-public class Player {
+
+public class Player implements Collidable {
     private final Rectangle2D imageCells[]=new Rectangle2D[11]; //tablica z animacja bohatera
     private double cellWidth;
     private double cellHeight;
@@ -98,6 +100,16 @@ public class Player {
         return y;
     }
 
+    @Override
+    public double getWidth() {
+        return cellWidth;
+    }
+
+    @Override
+    public double getHeight() {
+        return cellHeight;
+    }
+
     public void setVelocity(double xx, double yy)
     {
         velocity=new Point2D(xx,yy);
@@ -136,9 +148,16 @@ public class Player {
             jumpingFrameIndex=0;
         }
     }
-    public boolean isColliding(Platform x)
+    public typeOfCollision isColliding(Collidable other)
     {
-        return x.getViewOfMyPlatform().getBoundsInParent().intersects(x.getViewOfMyPlatform().getBoundsInLocal());
+        if(x+cellWidth>=other.getX() && x+cellWidth <= other.getX()+other.getWidth())  //sprawdzamy czy x
+        {
+            if(y+cellHeight<=other.getY() && y+cellHeight>other.getY()+other.getHeight()) return UP;
+            else if(y+cellHeight<=other.getY() && y<other.getY()+other.getHeight() ) return DOWN;
+            else return SIDE;
+        }
+        else return NO;
+       //return x.getViewOfMyPlatform().getBoundsInParent().intersects(x.getViewOfMyPlatform().getBoundsInLocal());
     }
 
     public void update(boolean colliding)//obsluguje skoki, ruch, zmiane animacji

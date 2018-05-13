@@ -17,6 +17,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static sample.Collidable.typeOfCollision.*;
+
 public class GameScene extends Scene {
     private Player myPlayer;
     private AnchorPane myPane;
@@ -24,13 +26,13 @@ public class GameScene extends Scene {
     private List<Enemy> enemies = new ArrayList<Enemy>();
     private List<Platform> platforms = new ArrayList<Platform>();
     private EventHandler<KeyEvent> myPressedKeyHandler;
-    private AnimationTimer collisionTimer = new AnimationTimer() {
+    private AnimationTimer collisionTimer = new AnimationTimer() { //timer obslugujacy kolizje oraz ruch bohatera
         @Override
         public void handle(long now) {
             boolean colliding=false;
-            for(int i=0;i<platforms.size();++i)
+           for(int i=0;i<platforms.size();++i) //sprawdzamy czy nasz gracz koliduja z jakakolwiek platforma
             {
-                if(myPlayer.isColliding(platforms.get(i)))
+                if(myPlayer.isColliding(platforms.get(i))==UP)
                 {
                     System.out.println("KOLIDUJE");
                     myPlayer.setVelocity(myPlayer.getVelocity().getX(),0);
@@ -60,7 +62,9 @@ public class GameScene extends Scene {
         myPlayer.getViewOfMyPlayer().setTranslateX(myPlayer.getX());
         myPane.getChildren().add(myPlayer.getViewOfMyPlayer());
         platforms.add(new Platform());
+        enemies.add(new Enemy());
         myPane.getChildren().add(platforms.get(0).getViewOfMyPlatform());
+        myPane.getChildren().add(enemies.get(0).getViewOfMyEnemy());
         //myPane.setOnKeyPressed(myPressedKeyHandler);
         //jego definicja
         myPressedKeyHandler= event -> {

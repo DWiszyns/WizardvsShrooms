@@ -5,7 +5,9 @@ import javafx.scene.image.ImageView;
 
 import javafx.geometry.Rectangle2D;
 
-public class Platform {
+import static sample.Collidable.typeOfCollision.*;
+
+public class Platform implements Collidable{
 
     private Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("layer-3-ground.png"));
     private ImageView viewOfMyPlatform=new ImageView(image);
@@ -35,24 +37,28 @@ public class Platform {
         return viewOfMyPlatform;
     }
 
+    @Override
     public double getX() {
         return x;
     }
 
+    @Override
     public double getY() {
         return y;
     }
-    public double getWidth()
-    {
+
+    @Override
+    public double getWidth() {
         return width;
     }
 
-    public double getHeight()
-    {
+    @Override
+    public double getHeight() {
         return height;
     }
 
-
-
-
+    @Override
+    public typeOfCollision isColliding(Collidable other) {
+        return UP;
+    }
 }
