@@ -23,35 +23,18 @@ public class Player implements Collidable {
     private boolean jumping;
     private int jumpingFrameIndex;
     private int timeFrame;
-   /* public AnimationTimer myTimer = new AnimationTimer() { //obsluguje skoki, ruch, zmiane animacji
-        @Override
-        public void handle(long now) {
-            x+=velocity.getX();
-            y+=velocity.getY();
-            viewOfMyPlayer.setTranslateX(x);
-            viewOfMyPlayer.setTranslateY(y);
-            timeFrame=(timeFrame+1)%10;
-            if(isJumping())
-            {
-                jump();
-            }
-            if(velocity.getX()>0 && !jumping && timeFrame==0 )
-            {
-                viewOfMyPlayer.setViewport(imageCells[((int)x+1)%4]);
-            }
-
-        }
-    }; */
+    private int cellFrame;//zeby zawsze chodzil tak samo
+    private boolean inAir; //do skokow
 
     public Player()
     {
         Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("pelnaanimacja.png"));
         //viewOfMyPlayer=new ImageView(image);
-        x=-1;
+        x=0d;
         //y=440; //wspolrzedne, zeby stal na ziemi
-        y=440;
+        y=300;
         cellWidth= 20;
-        cellHeight= 35;
+        cellHeight= 34;
         //inincjalizujemy tablice klatek, z powodu roznych wielkosci obrazkow, wpisuje po kolei
         imageCells[0] = new Rectangle2D(cellWidth,0,cellWidth,cellHeight);
         imageCells[1]= new Rectangle2D(cellWidth*2,0,cellWidth,cellHeight);
@@ -72,6 +55,7 @@ public class Player implements Collidable {
         jumpingFrameIndex=0;
         //myTimer.start();
         timeFrame=0;
+        cellFrame=0;
     }
 
     public ImageView getViewOfMyPlayer() {
@@ -102,12 +86,12 @@ public class Player implements Collidable {
 
     @Override
     public double getWidth() {
-        return cellWidth;
+        return viewOfMyPlayer.getFitHeight();
     }
 
     @Override
     public double getHeight() {
-        return cellHeight;
+        return viewOfMyPlayer.getFitHeight();
     }
 
     public void setVelocity(double xx, double yy)
@@ -130,53 +114,62 @@ public class Player implements Collidable {
 
     public void jump ()
     {
-        if(jumpingFrameIndex==0) setVelocity(getVelocity().getX()+0,getVelocity().getY()+(-4));
-        if(jumpingFrameIndex<19) { viewOfMyPlayer.setViewport(imageCells[4]); System.out.println(x+" "+y+" "+jumpingFrameIndex);}
-        if(jumpingFrameIndex==19) {setVelocity(getVelocity().getX(),getVelocity().getY()+4); viewOfMyPlayer.setViewport(imageCells[5]); System.out.println(x+" "+y+" "+jumpingFrameIndex);}
-        if(jumpingFrameIndex==20) {viewOfMyPlayer.setViewport(imageCells[6]); System.out.println(x+" "+y+" "+jumpingFrameIndex);}
-        if(jumpingFrameIndex==21) setVelocity(getVelocity().getX(),getVelocity().getY()+4);
-        if(jumpingFrameIndex>20&&jumpingFrameIndex<40) {
-            viewOfMyPlayer.setViewport(imageCells[7]);
-            System.out.println(x+" "+y+" "+jumpingFrameIndex);
-        }
+        if(jumpingFrameIndex==0) {setVelocity(getVelocity().getX()+0,getVelocity().getY()+(-4)); setInAir(true);}
         if(jumpingFrameIndex!=40) ++jumpingFrameIndex;
         else {
-            setVelocity(getVelocity().getX(),0);
             setJumping(false);
             System.out.println(x+" "+y+" "+jumpingFrameIndex);
-            viewOfMyPlayer.setViewport(imageCells[0]);
             jumpingFrameIndex=0;
         }
     }
 
-    public typeOfCollision isColliding(Collidable other)
-    {
-        if(x+cellWidth>=other.getX() && x+cellWidth <= other.getX()+other.getWidth())  //sprawdzamy czy x
+    public typeOfCollision isColliding(Collidable other) { // to jest spoko tego nie zmieniaj
+        if(other.getClass()==Enemy.class) return isCollidingEnemy(other);
+        if (x + getWidth() >= other.getX() && x + getWidth() <= other.getX() + other.getWidth())  //sprawdzamy czy x
         {
-            if(y+cellHeight<=other.getY() && y+cellHeight>other.getY()+other.getHeight()) return UP;
-            else if(y+cellHeight<=other.getY() && y < other.getY()+other.getHeight() ) return DOWN;
-            else return SIDE;
+            if (y + getHeight() + 3 >= other.getY() && y + getHeight() - 3 < other.getY()) return UP;
+            else if (y + 3 >= other.getY() + other.getHeight() && y - 3 <= other.getY() + other.getHeight())
+                return DOWN;
+            else if (y >= other.getY() && y + getHeight() - 1 <= other.getY() + other.getHeight()) return SIDE;
         }
-        else return NO;
-       //return x.getViewOfMyPlatform().getBoundsInParent().intersects(x.getViewOfMyPlatform().getBoundsInLocal());
+        return NO;
+
     }
 
-    public void update(boolean colliding)//obsluguje skoki, ruch, zmiane animacji
+    private typeOfCollision isCollidingEnemy(Collidable other) {
+
+            if (y + getHeight() + 3 >= other.getY() && y + getHeight() - 3 < other.getY()) {
+                System.out.println("o tu");
+                if (x + getWidth() >= other.getX() && x + getWidth() <= other.getX() + other.getWidth()) return UP;
+                if (x <= other.getX() && x + getWidth() >= other.getX() + other.getWidth() )return UP; //kiedy jestesmy znacznie wieksi od przeciwnika przyklad      ++++++ - my
+                                                                                                        //                                                             ++   - przeciwnik
+                if (x >= other.getX() && x <= other.getX() + other.getWidth()) return UP;
+
+            }
+            /*else if (y + 3 >= other.getY() + other.getHeight() && y - 3 <= other.getY() + other.getHeight())
+                return DOWN; */
+
+            else if (x + getWidth() >= other.getX() && x + getWidth() <= other.getX() + other.getWidth()){
+                if (y <= other.getY() && y + getHeight() >= other.getY() + other.getHeight()) return SIDE;
+                else if (y >= other.getY() && y + getHeight() <= other.getY() + other.getHeight()) return SIDE;
+            }
+        return NO;
+
+    }
+
+    public void update(boolean colliding)//obsluguje skoki, ruch, zmiane animacji, to mega trzeba zmienic
     {
-        if(velocity.getY()!=0 && colliding) {setVelocity(velocity.getX(),0); setJumping(false);}
+        if(velocity.getY()!=0 && !jumping && colliding) {setVelocity(velocity.getX(),0); setJumping(false);}
         x+=velocity.getX();
         y+=velocity.getY();
         viewOfMyPlayer.setTranslateX(x);
         viewOfMyPlayer.setTranslateY(y);
-        timeFrame=(timeFrame+1)%10;
+
         if(isJumping())
         {
             jump();
         }
-        if(velocity.getX()!=0 && !jumping && timeFrame==0 )
-        {
-            viewOfMyPlayer.setViewport(imageCells[((int)x+1)%4]);
-        }
+       setAnimation();
     }
     public void setJumpingFrameIndex(int i)
     {
@@ -185,5 +178,34 @@ public class Player implements Collidable {
 
     public Rectangle2D getImageCells(int i) {
         return imageCells[i];
+    }
+
+    public boolean isInAir() {
+        return inAir;
+    }
+
+    public void setInAir(boolean inAir) {
+        this.inAir = inAir;
+    }
+    public void setAnimation()
+    {
+        timeFrame=(++timeFrame)%10;
+        cellFrame=(++cellFrame)%4;
+        if(velocity.getX()==0 && velocity.getY()==0 && !isInAir()) viewOfMyPlayer.setViewport(imageCells[0]); //podstawowy widok bohatera
+        else if(velocity.getY()==0 && !isInAir())
+        {
+            if(timeFrame==0)
+            {
+                viewOfMyPlayer.setViewport(imageCells[cellFrame]);
+            }
+
+        }
+        if(isInAir()&&velocity.getY()<0) viewOfMyPlayer.setViewport(imageCells[5]);
+        if(isInAir()&&velocity.getY()==0) viewOfMyPlayer.setViewport(imageCells[6]);
+        if(isInAir()&&velocity.getY()>0) viewOfMyPlayer.setViewport(imageCells[7]);
+    }
+
+    public int getJumpingFrameIndex() {
+        return jumpingFrameIndex;
     }
 }

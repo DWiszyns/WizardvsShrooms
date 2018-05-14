@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.exit;
 import static sample.Collidable.typeOfCollision.*;
 
 public class GameScene extends Scene {
@@ -28,22 +29,40 @@ public class GameScene extends Scene {
     private EventHandler<KeyEvent> myPressedKeyHandler;
     private AnimationTimer collisionTimer = new AnimationTimer() { //timer obslugujacy kolizje oraz ruch bohatera
         @Override
-        public void handle(long now) {
+        public void handle(long now) { //to tez mega trzeba zmienic
             boolean collidingwithPlatform=false;
             Collidable.typeOfCollision x;
-           for(int i=0;i<platforms.size();++i) //sprawdzamy czy nasz gracz koliduja z jakakolwiek platforma
+           if(myPlayer.getJumpingFrameIndex()!=1) for (Platform platform : platforms) {
+              // if(i==1) System.out.println("Sprawdzone");
+               if ((x = myPlayer.isColliding(platform)) == UP) {
+                   if (myPlayer.isInAir()) myPlayer.setVelocity(myPlayer.getVelocity().getX(), 0); //jezeli spada na platforme to
+                   myPlayer.setJumping(false);
+                   myPlayer.setInAir(false);
+                   myPlayer.setJumpingFrameIndex(0);
+                   collidingwithPlatform = true;
+                   break;
+               }
+           }
+           for(Enemy enemy : enemies )
+           {
+               if ((x = myPlayer.isColliding(enemy)) == UP) {
+                   System.out.println("chociaz raz");
+                   myPane.getChildren().remove(enemy.getViewOfMyEnemy());
+               }
+                else if(x == SIDE){
+                   exit(0);
+               }
+              // System.out.println(x);
+           }
+           //System.out.println(collidingwithPlatform);
+            //System.out.println(myPlayer.getX()+" "+(myPlayer.getY()+myPlayer.getHeight()));
+            if(!collidingwithPlatform)
             {
-                if((x=myPlayer.isColliding(platforms.get(i)))!=NO)
-                {
-                    System.out.println(myPlayer.getX()+" "+myPlayer.getY());
-                    myPlayer.setVelocity(myPlayer.getVelocity().getX(),0);
-                    myPlayer.setJumping(false);
-                    myPlayer.setJumpingFrameIndex(0);
-                    collidingwithPlatform=true;
-                }
+               // if(myPlayer.getJumpingFrameIndex()!=1) System.out.println(x);
+                myPlayer.setVelocity(myPlayer.getVelocity().getX(),myPlayer.getVelocity().getY()+0.2); //pseudograwitacja
+                myPlayer.setInAir(true);
             }
-            if(!collidingwithPlatform && myPlayer.getY()<440 && !myPlayer.isJumping()) myPlayer.setVelocity(myPlayer.getVelocity().getX(),myPlayer.getVelocity().getY()+1);
-            if(!collidingwithPlatform && myPlayer.getY()>=440 && !myPlayer.isJumping()) collidingwithPlatform=true;
+            //if(!collidingwithPlatform && myPlayer.getY()>=440 && !myPlayer.isJumping()) collidingwithPlatform=true;
             myPlayer.update(collidingwithPlatform);
         }
     };
@@ -53,7 +72,7 @@ public class GameScene extends Scene {
         super(new AnchorPane());
         myPane = (AnchorPane) getRoot();
         myPane.setPrefSize(600,600);
-        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("Full-Background.png"));
+        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("nofloor_background.png"));
         background = new ImageView(image);
         background.setFitHeight(600);
         background.setFitWidth(600);
@@ -63,8 +82,12 @@ public class GameScene extends Scene {
         myPlayer.getViewOfMyPlayer().setTranslateX(myPlayer.getX());
         myPane.getChildren().add(myPlayer.getViewOfMyPlayer());
         platforms.add(new Platform());
+        platforms.add(new Platform());
+        if(platforms.size()>1) System.out.println("ZGADZA SIE");
+        platforms.get(1).setViewOfMyPlatform(300.0,520.0,200.0,60.0);//platforma pomocnicza
         enemies.add(new Enemy());
         myPane.getChildren().add(platforms.get(0).getViewOfMyPlatform());
+        myPane.getChildren().add(platforms.get(1).getViewOfMyPlatform());
         myPane.getChildren().add(enemies.get(0).getViewOfMyEnemy());
         //myPane.setOnKeyPressed(myPressedKeyHandler);
         //jego definicja
@@ -78,7 +101,7 @@ public class GameScene extends Scene {
                     //myPlayer.setX(myPlayer.getX() - 1.0);
                     myPlayer.setVelocity(-1,0);//ustawiamy ruch w prawo
                 }
-                if(event.getCode()==KeyCode.SPACE && !myPlayer.isJumping())
+                if(event.getCode()==KeyCode.SPACE && !myPlayer.isJumping()) //zapobiegamy wieloskokom
                 {
                     myPlayer.setJumping(true);
                    // myPlayer.jumpTimer.start();

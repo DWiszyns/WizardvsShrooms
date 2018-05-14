@@ -19,16 +19,15 @@ public class Enemy implements Collidable {
     Enemy()
     {
         zdjecie = new Rectangle2D(0,860,500,430);
-        x=500.0;
-        y=440.0;
-        width=100.0;
-        height=86.0;
+        x=150.0;
+        y=425.0;
+        width=40.0;
+        height=30.0;
         viewOfMyEnemy.setViewport(zdjecie);
         viewOfMyEnemy.setFitHeight(height);
         viewOfMyEnemy.setFitWidth(width);
         viewOfMyEnemy.setTranslateX(x);
         viewOfMyEnemy.setTranslateY(y);
-
     }
 
     public ImageView getViewOfMyEnemy() {

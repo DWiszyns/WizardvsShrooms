@@ -21,10 +21,10 @@ public class Platform implements Collidable{
     Platform()
     {
         zdjecie = new Rectangle2D(0,1336,200,200);
-        x=300.0;
-        y=470.0;
-        width=100.0;
-        height=30.0;
+        x=0.0;
+        y=455.0;
+        width=310.0;
+        height=80.0;
         viewOfMyPlatform.setViewport(zdjecie);
         viewOfMyPlatform.setFitHeight(height);
         viewOfMyPlatform.setFitWidth(width);
@@ -35,6 +35,34 @@ public class Platform implements Collidable{
 
     public ImageView getViewOfMyPlatform() {
         return viewOfMyPlatform;
+    }
+
+    public void setViewOfMyPlatform(double x, double y, double width, double height){
+        setHeight(height);
+        setWidth(width);
+        setX(x);
+        setY(y);
+        viewOfMyPlatform.setFitHeight(height);
+        viewOfMyPlatform.setFitWidth(width);
+        viewOfMyPlatform.setTranslateX(x);
+        viewOfMyPlatform.setTranslateY(y);
+
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 
     @Override
