@@ -22,7 +22,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>sample.WizardvsShrooms.Main</mainClass>
+                            <mainClass>sample.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
