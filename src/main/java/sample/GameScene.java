@@ -43,11 +43,12 @@ public class GameScene extends Scene {
                    break;
                }
            }
-           for(Enemy enemy : enemies )
+           for(int i=0;i<enemies.size();++i)
            {
-               if ((x = myPlayer.isColliding(enemy)) == UP) {
+               if ((x = myPlayer.isColliding(enemies.get(i))) == UP) {
                    System.out.println("chociaz raz");
-                   myPane.getChildren().remove(enemy.getViewOfMyEnemy());
+                   myPane.getChildren().remove(enemies.get(i).getViewOfMyEnemy());
+                   enemies.remove(i);
                }
                 else if(x == SIDE){
                    exit(0);

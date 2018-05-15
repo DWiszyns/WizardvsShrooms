@@ -19,7 +19,7 @@ public class Enemy implements Collidable {
     Enemy()
     {
         zdjecie = new Rectangle2D(0,860,500,430);
-        x=150.0;
+        x=300.0;
         y=425.0;
         width=40.0;
         height=30.0;

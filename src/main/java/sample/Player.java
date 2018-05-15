@@ -86,7 +86,7 @@ public class Player implements Collidable {
 
     @Override
     public double getWidth() {
-        return viewOfMyPlayer.getFitHeight();
+        return viewOfMyPlayer.getFitWidth();
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Player implements Collidable {
 
     public typeOfCollision isColliding(Collidable other) { // to jest spoko tego nie zmieniaj
         if(other.getClass()==Enemy.class) return isCollidingEnemy(other);
-        if (x + getWidth() >= other.getX() && x + getWidth() <= other.getX() + other.getWidth())  //sprawdzamy czy x
+        if (x + getWidth() >= other.getX() && x <= other.getX() + other.getWidth())  //sprawdzamy czy x
         {
             if (y + getHeight() + 3 >= other.getY() && y + getHeight() - 3 < other.getY()) return UP;
             else if (y + 3 >= other.getY() + other.getHeight() && y - 3 <= other.getY() + other.getHeight())
