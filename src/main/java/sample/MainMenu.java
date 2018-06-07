@@ -46,8 +46,8 @@ public class MainMenu extends Scene{
         loadGame.setLayoutY(275.0);
         loadGame.setPrefSize(80.0,25.0);
 
-        settings = new Button("Settings");
-        settings.setOnAction(e->exit(0));
+        settings = new Button("Instructions");
+        settings.setOnAction(e->SceneManager.getInstance().changeScene(Instructions));
         settings.setLayoutX(260.0);
         settings.setLayoutY(345.0);
         settings.setPrefSize(80.0,25.0);

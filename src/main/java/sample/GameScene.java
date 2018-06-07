@@ -108,6 +108,9 @@ public class GameScene extends Scene {
                    // myPlayer.jumpTimer.start();
                     myPlayer.jump();
                 }
+               /* if(event.getCode()==KeyCode.ESCAPE){
+                    SceneManager.getInstance().changeScene(SceneManager.currScene.Menu);
+                } */
             }
             if(event.getEventType()==KeyEvent.KEY_RELEASED) {
                 if (event.getCode() == KeyCode.D) {
