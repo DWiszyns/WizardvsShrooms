@@ -13,7 +13,7 @@ public class SceneManager {
 
     private Stage stage;
 
-    public enum currScene {Menu,Game,Settings};
+    public enum currScene {Menu,Game,LevelView,Settings};
     private Map<currScene,Scene> sceneMap = new HashMap<>();
 
     private SceneManager() {
@@ -21,6 +21,7 @@ public class SceneManager {
 
         sceneMap.put(currScene.Menu,new MainMenu());
         sceneMap.put(currScene.Game,new GameScene());
+        sceneMap.put(currScene.LevelView,new LevelView());
         changeScene(currScene.Menu);
         stage.setTitle("Wizard vs Shrooms");
     }
