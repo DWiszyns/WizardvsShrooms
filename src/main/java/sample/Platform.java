@@ -11,25 +11,30 @@ public class Platform implements Collidable{
 
     private Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("layer-3-ground.png"));
     private ImageView viewOfMyPlatform=new ImageView(image);
-    private double x;
-    private double y;
+    private double xLevel;
+    private double yLevel;
+    private double xView;
+    private double yView;
     private double width;
     private double height;
     private final Rectangle2D zdjecie;
+    //potrzebne beda tez wspolrzedne na obrazku, nie tylko na view
 
 
     Platform()
     {
         zdjecie = new Rectangle2D(0,1336,200,200);
-        x=0.0;
-        y=455.0;
+        xLevel=0.0;
+        yLevel=455.0;
+        xView=xLevel;
+        yView=yLevel;
         width=310.0;
         height=80.0;
         viewOfMyPlatform.setViewport(zdjecie);
         viewOfMyPlatform.setFitHeight(height);
         viewOfMyPlatform.setFitWidth(width);
-        viewOfMyPlatform.setTranslateX(x);
-        viewOfMyPlatform.setTranslateY(y);
+        viewOfMyPlatform.setTranslateX(xLevel);
+        viewOfMyPlatform.setTranslateY(yLevel);
 
     }
 
@@ -40,12 +45,14 @@ public class Platform implements Collidable{
     public void setViewOfMyPlatform(double x, double y, double width, double height){
         setHeight(height);
         setWidth(width);
+        setxView(x);
+        setyView(y);
         setX(x);
         setY(y);
         viewOfMyPlatform.setFitHeight(height);
         viewOfMyPlatform.setFitWidth(width);
-        viewOfMyPlatform.setTranslateX(x);
-        viewOfMyPlatform.setTranslateY(y);
+        viewOfMyPlatform.setTranslateX(xView);
+        viewOfMyPlatform.setTranslateY(yView);
 
     }
 
@@ -58,21 +65,21 @@ public class Platform implements Collidable{
     }
 
     public void setX(double x) {
-        this.x = x;
+        this.xLevel = x;
     }
 
     public void setY(double y) {
-        this.y = y;
+        this.yLevel = y;
     }
 
     @Override
     public double getX() {
-        return x;
+        return xLevel;
     }
 
     @Override
     public double getY() {
-        return y;
+        return yLevel;
     }
 
     @Override
@@ -88,5 +95,21 @@ public class Platform implements Collidable{
     @Override
     public typeOfCollision isColliding(Collidable other) {
         return UP;
+    }
+
+    public double getxView() {
+        return xView;
+    }
+
+    public void setxView(double xView) {
+        this.xView = xView;
+    }
+
+    public double getyView() {
+        return yView;
+    }
+
+    public void setyView(double yView) {
+        this.yView = yView;
     }
 }

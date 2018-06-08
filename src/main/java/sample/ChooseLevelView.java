@@ -9,14 +9,14 @@ import javafx.scene.text.Font;
 
 import static sample.SceneManager.currScene.Game;
 
-public class LevelView extends Scene {
+public class ChooseLevelView extends Scene {
     private AnchorPane myPane;
     private Button level1;
     private Button level2;
     private Button level3;
     private Label myLabel;
 
-    public LevelView()
+    public ChooseLevelView()
     {
         super(new AnchorPane());
         myPane = (AnchorPane) this.getRoot();

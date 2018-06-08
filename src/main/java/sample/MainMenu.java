@@ -41,7 +41,7 @@ public class MainMenu extends Scene{
         newGame.setPrefSize(80.0,25.0);
 
         loadGame = new Button("Load Game");
-        loadGame.setOnAction(e->SceneManager.getInstance().changeScene(LevelView));
+        loadGame.setOnAction(e->SceneManager.getInstance().changeScene(ChooseLevelView));
         loadGame.setLayoutX(260.0);
         loadGame.setLayoutY(275.0);
         loadGame.setPrefSize(80.0,25.0);

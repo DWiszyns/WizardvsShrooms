@@ -16,7 +16,7 @@ public class SceneManager {
 
     private Stage stage;
 
-    public enum currScene {Menu,Game,LevelView,Instructions};
+    public enum currScene {Menu,Game,ChooseLevelView,Instructions};
     private Map<currScene,Scene> sceneMap = new HashMap<>();
     private EventHandler<KeyEvent> myEscapeHandler;
 
@@ -26,7 +26,7 @@ public class SceneManager {
 
         sceneMap.put(currScene.Menu,new MainMenu());
         sceneMap.put(currScene.Game,new GameScene());
-        sceneMap.put(currScene.LevelView,new LevelView());
+        sceneMap.put(currScene.ChooseLevelView,new ChooseLevelView());
         sceneMap.put(currScene.Instructions, new InstructionsView());
         stage.setTitle("Wizard vs Shrooms");
         myEscapeHandler = event -> {

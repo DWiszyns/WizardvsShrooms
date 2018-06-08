@@ -17,9 +17,12 @@ public class Player implements Collidable {
     private double cellHeight;
     private ImageView viewOfMyPlayer=new ImageView();
     private final int numberofFrames=11;
-    private Point2D velocity = new Point2D(0,0);
-    private double x;
-    private double y;
+    private Point2D velocityLevel = new Point2D(0,0); //predkosc z perspektywy poziomu
+    private Point2D velocityView = new Point2D(0,0); //predkosc z perspektywy widoku
+    private double xLevel;
+    private double yLevel;
+    private double xView;
+    private double yView;
     private boolean jumping;
     private int jumpingFrameIndex;
     private int timeFrame;
@@ -30,11 +33,13 @@ public class Player implements Collidable {
     {
         Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("pelnaanimacja.png"));
         //viewOfMyPlayer=new ImageView(image);
-        x=0d;
+        xLevel=0d;
         //y=440; //wspolrzedne, zeby stal na ziemi
-        y=300;
+        yLevel=300;
         cellWidth= 20;
         cellHeight= 34;
+        xView=xLevel;
+        yView=yLevel;
         //inincjalizujemy tablice klatek, z powodu roznych wielkosci obrazkow, wpisuje po kolei
         imageCells[0] = new Rectangle2D(cellWidth,0,cellWidth,cellHeight);
         imageCells[1]= new Rectangle2D(cellWidth*2,0,cellWidth,cellHeight);
@@ -64,24 +69,24 @@ public class Player implements Collidable {
 
     public void setX (double newX)
     {
-        x=newX;
-        viewOfMyPlayer.setX(x);
+        xLevel=newX;
+        viewOfMyPlayer.setX(xLevel);
 
     }
 
     public void setY(double newY)
     {
-        y=newY;
-        viewOfMyPlayer.setY(y);
+        yLevel=newY;
+        viewOfMyPlayer.setY(yLevel);
 
     }
 
     public double getX() {
-        return x;
+        return xLevel;
     }
 
     public double getY() {
-        return y;
+        return yLevel;
     }
 
     @Override
@@ -96,12 +101,12 @@ public class Player implements Collidable {
 
     public void setVelocity(double xx, double yy)
     {
-        velocity=new Point2D(xx,yy);
+        velocityLevel=new Point2D(xx,yy);
     }
 
     public Point2D getVelocity()
     {
-        return velocity;
+        return velocityLevel;
     }
 
     public boolean isJumping() {
@@ -114,23 +119,25 @@ public class Player implements Collidable {
 
     public void jump ()
     {
-        if(jumpingFrameIndex==0) {setVelocity(getVelocity().getX()+0,getVelocity().getY()+(-4)); setInAir(true);}
+        if(jumpingFrameIndex==0) {
+            setVelocity(getVelocity().getX()+0,getVelocity().getY()+(-4)); setInAir(true);
+            setVelocityView(new Point2D(getVelocityView().getX()+0,getVelocityView().getY()+(-4))); setInAir(true);}
         if(jumpingFrameIndex!=40) ++jumpingFrameIndex;
         else {
             setJumping(false);
-            System.out.println(x+" "+y+" "+jumpingFrameIndex);
+            System.out.println(xLevel+" "+yLevel+" "+jumpingFrameIndex);
             jumpingFrameIndex=0;
         }
     }
 
     public typeOfCollision isColliding(Collidable other) { // to jest spoko tego nie zmieniaj
         if(other.getClass()==Enemy.class) return isCollidingEnemy(other);
-        if (x + getWidth() >= other.getX() && x <= other.getX() + other.getWidth())  //sprawdzamy czy x
+        if (xLevel + getWidth() >= other.getX() && xLevel <= other.getX() + other.getWidth())  //sprawdzamy czy x
         {
-            if (y + getHeight() + 3 >= other.getY() && y + getHeight() - 3 < other.getY()) return UP;
-            else if (y + 3 >= other.getY() + other.getHeight() && y - 3 <= other.getY() + other.getHeight())
+            if (yLevel + getHeight() + 3 >= other.getY() && yLevel + getHeight() - 3 < other.getY()) return UP;
+            else if (yLevel + 3 >= other.getY() + other.getHeight() && yLevel - 3 <= other.getY() + other.getHeight())
                 return DOWN;
-            else if (y >= other.getY() && y + getHeight() - 1 <= other.getY() + other.getHeight()) return SIDE;
+            else if (yLevel >= other.getY() && yLevel + getHeight() - 1 <= other.getY() + other.getHeight()) return SIDE;
         }
         return NO;
 
@@ -138,38 +145,40 @@ public class Player implements Collidable {
 
     private typeOfCollision isCollidingEnemy(Collidable other) {
 
-            if (y + getHeight() + 3 >= other.getY() && y + getHeight() - 3 < other.getY()) {
+            if (yLevel + getHeight() + 3 >= other.getY() && yLevel + getHeight() - 3 < other.getY()) {
                 System.out.println("o tu");
-                if (x + getWidth() >= other.getX() && x + getWidth() <= other.getX() + other.getWidth()) return UP;
-                if (x <= other.getX() && x + getWidth() >= other.getX() + other.getWidth() )return UP; //kiedy jestesmy znacznie wieksi od przeciwnika przyklad      ++++++ - my
+                if (xLevel + getWidth() >= other.getX() && xLevel + getWidth() <= other.getX() + other.getWidth()) return UP;
+                if (xLevel <= other.getX() && xLevel + getWidth() >= other.getX() + other.getWidth() )return UP; //kiedy jestesmy znacznie wieksi od przeciwnika przyklad      ++++++ - my
                                                                                                         //                                                             ++   - przeciwnik
-                if (x >= other.getX() && x <= other.getX() + other.getWidth()) return UP;
+                if (xLevel >= other.getX() && xLevel <= other.getX() + other.getWidth()) return UP;
 
             }
             /*else if (y + 3 >= other.getY() + other.getHeight() && y - 3 <= other.getY() + other.getHeight())
                 return DOWN; */
 
-            else if (x + getWidth() >= other.getX() && x + getWidth() <= other.getX() + other.getWidth()){
-                if (y <= other.getY() && y + getHeight() >= other.getY() + other.getHeight()) return SIDE;
-                else if (y >= other.getY() && y + getHeight() <= other.getY() + other.getHeight()) return SIDE;
+            else if (xLevel + getWidth() >= other.getX() && xLevel + getWidth() <= other.getX() + other.getWidth()){
+                if (yLevel <= other.getY() && yLevel + getHeight() >= other.getY() + other.getHeight()) return SIDE;
+                else if (yLevel >= other.getY() && yLevel + getHeight() <= other.getY() + other.getHeight()) return SIDE;
             }
         return NO;
 
     }
 
-    public void update(boolean colliding)//obsluguje skoki, ruch, zmiane animacji, to mega trzeba zmienic
+    public void update(boolean colliding,boolean moving)//obsluguje skoki, ruch, zmiane animacji, to mega trzeba zmienic
     {
-        if(velocity.getY()!=0 && !jumping && colliding) {setVelocity(velocity.getX(),0); setJumping(false);}
-        x+=velocity.getX();
-        y+=velocity.getY();
-        viewOfMyPlayer.setTranslateX(x);
-        viewOfMyPlayer.setTranslateY(y);
+        if(velocityLevel.getY()!=0 && !jumping && colliding) {setVelocity(velocityLevel.getX(),0); setVelocityView(new Point2D(velocityView.getX(),0)); setJumping(false);}
+        xLevel+=velocityLevel.getX();
+        yLevel+=velocityLevel.getY();
+        xView+=velocityView.getX();
+        yView+=velocityView.getY();
+        viewOfMyPlayer.setTranslateX(xView);
+        viewOfMyPlayer.setTranslateY(yView);
 
         if(isJumping())
         {
             jump();
         }
-       setAnimation();
+       setAnimation(moving);
     }
     public void setJumpingFrameIndex(int i)
     {
@@ -187,12 +196,12 @@ public class Player implements Collidable {
     public void setInAir(boolean inAir) {
         this.inAir = inAir;
     }
-    public void setAnimation()
+    public void setAnimation(boolean moving) //set Animation tylko patrzy czy po xLevel,yLevel itd. , bo na widoku mozemy stac w miejscu, a tak naprawde idziemy
     {
         timeFrame=(++timeFrame)%10;
         cellFrame=(++cellFrame)%4;
-        if(velocity.getX()==0 && velocity.getY()==0 && !isInAir()) viewOfMyPlayer.setViewport(imageCells[0]); //podstawowy widok bohatera
-        else if(velocity.getY()==0 && !isInAir())
+        if(velocityLevel.getX()==0 && velocityLevel.getY()==0 && !isInAir() &&!moving) viewOfMyPlayer.setViewport(imageCells[0]); //podstawowy widok bohatera
+        else if(moving&&velocityLevel.getY()==0 && !isInAir())
         {
             if(timeFrame==0)
             {
@@ -200,12 +209,36 @@ public class Player implements Collidable {
             }
 
         }
-        if(isInAir()&&velocity.getY()<0) viewOfMyPlayer.setViewport(imageCells[5]);
-        if(isInAir()&&velocity.getY()==0) viewOfMyPlayer.setViewport(imageCells[6]);
-        if(isInAir()&&velocity.getY()>0) viewOfMyPlayer.setViewport(imageCells[7]);
+        if(isInAir()&&velocityLevel.getY()<0) viewOfMyPlayer.setViewport(imageCells[5]);
+        if(isInAir()&&velocityLevel.getY()==0) viewOfMyPlayer.setViewport(imageCells[6]);
+        if(isInAir()&&velocityLevel.getY()>0) viewOfMyPlayer.setViewport(imageCells[7]);
     }
 
     public int getJumpingFrameIndex() {
         return jumpingFrameIndex;
+    }
+
+    public double getxView() {
+        return xView;
+    }
+
+    public void setxView(double xView) {
+        this.xView = xView;
+    }
+
+    public double getyView() {
+        return yView;
+    }
+
+    public void setyView(double yView) {
+        this.yView = yView;
+    }
+
+    public Point2D getVelocityView() {
+        return velocityView;
+    }
+
+    public void setVelocityView(Point2D velocityView) {
+        this.velocityView = velocityView;
     }
 }

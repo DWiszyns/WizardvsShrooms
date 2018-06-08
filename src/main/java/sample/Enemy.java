@@ -9,8 +9,10 @@ import static sample.Collidable.typeOfCollision.*;
 public class Enemy implements Collidable {
     private Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("Cogucogu.png"));
     private ImageView viewOfMyEnemy=new ImageView(image);
-    private double x;
-    private double y;
+    private double xLevel;
+    private double yLevel;
+    private double xView;
+    private double yView;
     private double width;
     private double height;
     private final Rectangle2D zdjecie;
@@ -19,15 +21,17 @@ public class Enemy implements Collidable {
     Enemy()
     {
         zdjecie = new Rectangle2D(0,860,500,430);
-        x=300.0;
-        y=425.0;
+        xLevel=300.0;
+        yLevel=425.0;
         width=40.0;
         height=30.0;
+        xView=xLevel;
+        yView=yLevel;
         viewOfMyEnemy.setViewport(zdjecie);
         viewOfMyEnemy.setFitHeight(height);
         viewOfMyEnemy.setFitWidth(width);
-        viewOfMyEnemy.setTranslateX(x);
-        viewOfMyEnemy.setTranslateY(y);
+        viewOfMyEnemy.setTranslateX(xLevel);
+        viewOfMyEnemy.setTranslateY(yLevel);
     }
 
     public ImageView getViewOfMyEnemy() {
@@ -36,12 +40,12 @@ public class Enemy implements Collidable {
 
     @Override
     public double getY() {
-        return y;
+        return yLevel;
     }
 
     @Override
     public double getX() {
-        return x;
+        return xLevel;
     }
 
     @Override
@@ -57,5 +61,21 @@ public class Enemy implements Collidable {
     @Override
     public typeOfCollision isColliding(Collidable other) {
         return NO;
+    }
+
+    public double getxView() {
+        return xView;
+    }
+
+    public void setxView(double xView) {
+        this.xView = xView;
+    }
+
+    public double getyView() {
+        return yView;
+    }
+
+    public void setyView(double yView) {
+        this.yView = yView;
     }
 }
