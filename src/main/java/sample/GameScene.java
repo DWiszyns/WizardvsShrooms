@@ -105,12 +105,12 @@ public class GameScene extends Scene {
         myPlayer.getViewOfMyPlayer().setTranslateY(myPlayer.getyView());//ustawiamy wspolrzedne bohatera
         myPlayer.getViewOfMyPlayer().setTranslateX(myPlayer.getxView());
         myPane.getChildren().add(myPlayer.getViewOfMyPlayer());
-        platforms.add(new Platform());
-        platforms.add(new Platform());
-        platforms.add(new Platform());
+        platforms.add(new Platform(0,455,310,80));
+        platforms.add(new Platform(300.0,520.0,400.0,60.0));
+        platforms.add(new Platform(730.0,520.0,50.0,60.0));
         if(platforms.size()>1) System.out.println("ZGADZA SIE");
-        platforms.get(1).setViewOfMyPlatform(300.0,520.0,400.0,60.0);//platforma pomocnicza
-        platforms.get(2).setViewOfMyPlatform(730.0,520.0,50.0,60.0);
+        //platforms.get(1).setViewOfMyPlatform(300.0,520.0,400.0,60.0);//platforma pomocnicza
+       // platforms.get(2).setViewOfMyPlatform(730.0,520.0,50.0,60.0);
         enemies.add(new Enemy());
         myPane.getChildren().add(platforms.get(0).getViewOfMyPlatform());
         myPane.getChildren().add(platforms.get(1).getViewOfMyPlatform());

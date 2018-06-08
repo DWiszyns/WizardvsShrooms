@@ -21,15 +21,15 @@ public class Platform implements Collidable{
     //potrzebne beda tez wspolrzedne na obrazku, nie tylko na view
 
 
-    Platform()
+    Platform(double x, double y, double w, double h)
     {
         zdjecie = new Rectangle2D(0,1336,200,200);
-        xLevel=0.0;
-        yLevel=455.0;
+        xLevel=x;
+        yLevel=y;
         xView=xLevel;
         yView=yLevel;
-        width=310.0;
-        height=80.0;
+        width=w;
+        height=h;
         viewOfMyPlatform.setViewport(zdjecie);
         viewOfMyPlatform.setFitHeight(height);
         viewOfMyPlatform.setFitWidth(width);
@@ -47,8 +47,8 @@ public class Platform implements Collidable{
         setWidth(width);
         setxView(x);
         setyView(y);
-        setX(x);
-        setY(y);
+        //setX(x);
+       // setY(y);
         viewOfMyPlatform.setFitHeight(height);
         viewOfMyPlatform.setFitWidth(width);
         viewOfMyPlatform.setTranslateX(xView);
