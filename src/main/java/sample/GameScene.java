@@ -39,9 +39,10 @@ public class GameScene extends Scene {
         public void handle(long now) { //to tez mega trzeba zmienic, bo dziala za szybko, najpierw wychodzisz poza wszystko potem zmienia sie widok
             boolean collidingwithPlatform=false;
             Collidable.typeOfCollision x;
-           if(myPlayer.getJumpingFrameIndex()!=1) for (Platform platform : platforms) {
+           if(myPlayer.getJumpingFrameIndex()!=1) for (Platform platform : platforms) { 
+               platform.update(cameraViewVelocity.getX());
               // if(i==1) System.out.println("Sprawdzone");
-               if ((x = myPlayer.isColliding(platform)) == UP) {
+               if (!collidingwithPlatform && (x = myPlayer.isColliding(platform)) == UP) {
                    if (myPlayer.isInAir()) {
                        myPlayer.setVelocity(myPlayer.getVelocity().getX(), 0); //jezeli spada na platforme to
                        myPlayer.setVelocityView(new Point2D(myPlayer.getVelocityView().getX(), 0));
@@ -52,13 +53,13 @@ public class GameScene extends Scene {
                    myPlayer.setInAir(false);
                    myPlayer.setJumpingFrameIndex(0);
                    collidingwithPlatform = true;
-                   platform.setxView(platform.getxView()-cameraViewVelocity.getX());
-                   platform.setViewOfMyPlatform(platform.getxView(),platform.getyView(), platform.getWidth(),platform.getHeight());
+                   //platform.setxView(platform.getxView()-cameraViewVelocity.getX());
+                   //platform.setViewOfMyPlatform(platform.getxView(),platform.getyView(), platform.getWidth(),platform.getHeight());
                    System.out.println(myPlayer.getX()+" "+myPlayer.getY()+" "+platform.getX()+" "+(platform.getX()+platform.getWidth())+" "+platform.getHeight());
-                   break;
+                   //break;
                }
-               platform.setxView(platform.getxView()-cameraViewVelocity.getX());
-               platform.setViewOfMyPlatform(platform.getxView(),platform.getyView(), platform.getWidth(),platform.getHeight());
+              // platform.setxView(platform.getxView()-cameraViewVelocity.getX());
+              // platform.setViewOfMyPlatform(platform.getxView(),platform.getyView(), platform.getWidth(),platform.getHeight());
            }
            for(int i=0;i<enemies.size();++i)
            {
@@ -107,13 +108,12 @@ public class GameScene extends Scene {
         myPane.getChildren().add(myPlayer.getViewOfMyPlayer());
         platforms.add(new Platform(0,455,310,80));
         platforms.add(new Platform(300.0,520.0,400.0,60.0));
-        platforms.add(new Platform(730.0,520.0,50.0,60.0));
-        if(platforms.size()>1) System.out.println("ZGADZA SIE");
-        //platforms.get(1).setViewOfMyPlatform(300.0,520.0,400.0,60.0);//platforma pomocnicza
-       // platforms.get(2).setViewOfMyPlatform(730.0,520.0,50.0,60.0);
+        platforms.add(new Platform(710,500.0,200,60.0)); //cos ucieka, nie wiem dlaczego tak jest
+        if(platforms.size()>2) System.out.println("ZGADZA SIE");
         enemies.add(new Enemy());
         myPane.getChildren().add(platforms.get(0).getViewOfMyPlatform());
         myPane.getChildren().add(platforms.get(1).getViewOfMyPlatform());
+        myPane.getChildren().add(platforms.get(2).getViewOfMyPlatform());
         myPane.getChildren().add(enemies.get(0).getViewOfMyEnemy());
         //myPane.setOnKeyPressed(myPressedKeyHandler);
         //jego definicja

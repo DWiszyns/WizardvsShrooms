@@ -112,4 +112,9 @@ public class Platform implements Collidable{
     public void setyView(double yView) {
         this.yView = yView;
     }
+    public void update(double cameraX)
+    {
+        xView=xView-cameraX;
+        setViewOfMyPlatform(xView,yView,width,height);
+    }
 }
