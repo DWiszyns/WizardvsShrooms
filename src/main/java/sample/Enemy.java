@@ -18,11 +18,11 @@ public class Enemy implements Collidable {
     private final Rectangle2D zdjecie;
 
 
-    Enemy()
+    Enemy(double x, double y)
     {
         zdjecie = new Rectangle2D(0,860,500,430);
-        xLevel=300.0;
-        yLevel=425.0;
+        xLevel=x;
+        yLevel=y;
         width=40.0;
         height=30.0;
         xView=xLevel;
@@ -30,8 +30,8 @@ public class Enemy implements Collidable {
         viewOfMyEnemy.setViewport(zdjecie);
         viewOfMyEnemy.setFitHeight(height);
         viewOfMyEnemy.setFitWidth(width);
-        viewOfMyEnemy.setTranslateX(xLevel);
-        viewOfMyEnemy.setTranslateY(yLevel);
+        viewOfMyEnemy.setTranslateX(xView);
+        viewOfMyEnemy.setTranslateY(yView);
     }
 
     public ImageView getViewOfMyEnemy() {
@@ -77,5 +77,18 @@ public class Enemy implements Collidable {
 
     public void setyView(double yView) {
         this.yView = yView;
+    }
+
+    public void setViewOfMyEnemy(double x, double y, double width, double height) {
+        viewOfMyEnemy.setFitHeight(height);
+        viewOfMyEnemy.setFitWidth(width);
+        viewOfMyEnemy.setTranslateX(x);
+        viewOfMyEnemy.setTranslateY(y);
+    }
+
+    public void update(double cameraX)
+    {
+        xView=xView-cameraX;
+        setViewOfMyEnemy(xView,yView,width,height);
     }
 }

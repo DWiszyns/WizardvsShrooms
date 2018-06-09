@@ -39,7 +39,7 @@ public class GameScene extends Scene {
         public void handle(long now) { //to tez mega trzeba zmienic, bo dziala za szybko, najpierw wychodzisz poza wszystko potem zmienia sie widok
             boolean collidingwithPlatform=false;
             Collidable.typeOfCollision x;
-           if(myPlayer.getJumpingFrameIndex()!=1) for (Platform platform : platforms) { 
+           if(myPlayer.getJumpingFrameIndex()!=1) for (Platform platform : platforms) {
                platform.update(cameraViewVelocity.getX());
               // if(i==1) System.out.println("Sprawdzone");
                if (!collidingwithPlatform && (x = myPlayer.isColliding(platform)) == UP) {
@@ -53,16 +53,12 @@ public class GameScene extends Scene {
                    myPlayer.setInAir(false);
                    myPlayer.setJumpingFrameIndex(0);
                    collidingwithPlatform = true;
-                   //platform.setxView(platform.getxView()-cameraViewVelocity.getX());
-                   //platform.setViewOfMyPlatform(platform.getxView(),platform.getyView(), platform.getWidth(),platform.getHeight());
                    System.out.println(myPlayer.getX()+" "+myPlayer.getY()+" "+platform.getX()+" "+(platform.getX()+platform.getWidth())+" "+platform.getHeight());
-                   //break;
                }
-              // platform.setxView(platform.getxView()-cameraViewVelocity.getX());
-              // platform.setViewOfMyPlatform(platform.getxView(),platform.getyView(), platform.getWidth(),platform.getHeight());
            }
            for(int i=0;i<enemies.size();++i)
            {
+               enemies.get(i).update(cameraViewVelocity.getX());
                if ((x = myPlayer.isColliding(enemies.get(i))) == UP) {
                    System.out.println("chociaz raz");
                    myPane.getChildren().remove(enemies.get(i).getViewOfMyEnemy());
@@ -110,11 +106,14 @@ public class GameScene extends Scene {
         platforms.add(new Platform(300.0,520.0,400.0,60.0));
         platforms.add(new Platform(710,500.0,200,60.0)); //cos ucieka, nie wiem dlaczego tak jest
         if(platforms.size()>2) System.out.println("ZGADZA SIE");
-        enemies.add(new Enemy());
+        enemies.add(new Enemy(300,425));
+        enemies.add(new Enemy(800,470));
         myPane.getChildren().add(platforms.get(0).getViewOfMyPlatform());
         myPane.getChildren().add(platforms.get(1).getViewOfMyPlatform());
         myPane.getChildren().add(platforms.get(2).getViewOfMyPlatform());
         myPane.getChildren().add(enemies.get(0).getViewOfMyEnemy());
+        myPane.getChildren().add(enemies.get(1).getViewOfMyEnemy());
+
         //myPane.setOnKeyPressed(myPressedKeyHandler);
         //jego definicja
         myPressedKeyHandler= event -> {
