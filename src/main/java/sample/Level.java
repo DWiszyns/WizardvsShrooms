@@ -15,9 +15,9 @@ public class Level {
     {
         whichLevel=levelChooser;
         switch(whichLevel){
-            case 1: initializeLevel1();
-            case 2: initializeLevel2();
-            case 3: initializeLevel3();
+            case 1: {initializeLevel1();break;}
+            case 2: {initializeLevel2(); break;}
+            case 3: {initializeLevel3(); break;}
         }
     }
 
@@ -74,6 +74,10 @@ public class Level {
 
     public List<Platform> getPlatforms() {
         return platforms;
+    }
+
+    public Platform getPlatform(int i){
+        return platforms.get(i);
     }
 
 }

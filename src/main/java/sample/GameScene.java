@@ -18,8 +18,8 @@ import static sample.Collidable.typeOfCollision.*;
 
 public class GameScene extends Scene {
     private AnchorPane myPane;
+    private Level myLevel;
     private PlayerView myPlayerView;
-    private Player myPlayer;
     private ImageView background;
     private List<EnemyView> enemies = new ArrayList<EnemyView>();
     private List<PlatformView> platformViews = new ArrayList<PlatformView>();
@@ -82,30 +82,27 @@ public class GameScene extends Scene {
         super(new AnchorPane());
         myPane = (AnchorPane) getRoot();
         myPane.setPrefSize(600,600);
-        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("otherbackground.png"));
+        myLevel=new Level(1);
+
         cameraView=new Rectangle2D(cameraViewVelocity.getX(), cameraViewVelocity.getY(),cameraViewSize.getX(),cameraViewSize.getY());
-        background = new ImageView(image);
+        background = myLevel.getBackground();
         background.setViewport(cameraView);
         background.setFitHeight(600);
         background.setFitWidth(600);
         myPane.getChildren().add(background);
-        myPlayer=new Player();
-        myPlayerView= new PlayerView(myPlayer);
+
+        myPlayerView= new PlayerView(new Player());
         myPlayerView.getViewOfMyPlayer().setTranslateY(myPlayerView.getyView());//ustawiamy wspolrzedne bohatera
         myPlayerView.getViewOfMyPlayer().setTranslateX(myPlayerView.getxView());
         myPane.getChildren().add(myPlayerView.getViewOfMyPlayer());
-        platformViews.add(new PlatformView(new Platform(0,455,310,80)));
-        platformViews.add(new PlatformView(new Platform(300.0,520.0,400.0,60.0)));
-        platformViews.add(new PlatformView(new Platform(710,480.0,200,60.0))); //cos ucieka, nie wiem dlaczego tak jest
-        platformViews.add(new PlatformView(new Platform(950,480,500,60)));
-        platformViews.add(new PlatformView(new Platform(1460,460,385,60)));
-        enemies.add(new EnemyView(new Enemy(300,425)));
-        enemies.add(new EnemyView(new Enemy(800,450)));
-        enemies.add(new EnemyView(new Enemy(600,490)));
-        enemies.add(new EnemyView(new Enemy(1000,450)));
-        enemies.add(new EnemyView(new Enemy(1040,450)));
-        enemies.add(new EnemyView(new Enemy(1080,450)));
-        enemies.add(new EnemyView(new Enemy(1600,430)));
+
+        for(Platform platform:myLevel.getPlatforms()){
+            platformViews.add(new PlatformView(platform));
+        }
+
+        for(Enemy enemy: myLevel.getEnemies()){
+            enemies.add(new EnemyView(enemy));
+        }
         for(PlatformView platform: platformViews) myPane.getChildren().add(platform.getViewOfMyPlatform());
         for(EnemyView enemy: enemies) myPane.getChildren().add(enemy.getViewOfMyEnemy());
         //jego definicja
