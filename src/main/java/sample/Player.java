@@ -12,76 +12,35 @@ import static sample.Collidable.typeOfCollision.*;
 
 
 public class Player implements Collidable {
-    private final Rectangle2D imageCells[]=new Rectangle2D[11]; //tablica z animacja bohatera
     private double width;
     private double height;
-    private ImageView viewOfMyPlayer=new ImageView();
-    private final int numberofFrames=11;
     private Point2D velocityLevel = new Point2D(0,0); //predkosc z perspektywy poziomu
-    private Point2D velocityView = new Point2D(0,0); //predkosc z perspektywy widoku
     private double xLevel;
     private double yLevel;
-   private double xView;
-    private double yView;
     private boolean jumping;
     private int jumpingFrameIndex;
-    private int timeFrame;
-    private int cellFrame;//zeby zawsze chodzil tak samo
     private boolean inAir; //do skokow
 
     public Player()
     {
-        //Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("pelnaanimacja.png"));
-        //viewOfMyPlayer=new ImageView(image);
-        //xLevel=0d;
         xLevel=0;
-        //y=440; //wspolrzedne, zeby stal na ziemi
         yLevel=300;
-        /*cellWidth= 20;
-        cellHeight= 34;
-        xView=xLevel;
-        yView=yLevel;
-        //inincjalizujemy tablice klatek, z powodu roznych wielkosci obrazkow, wpisuje po kolei
-        imageCells[0] = new Rectangle2D(cellWidth,0,cellWidth,cellHeight);
-        imageCells[1]= new Rectangle2D(cellWidth*2,0,cellWidth,cellHeight);
-        imageCells[2]= new Rectangle2D(cellWidth*3,0,cellWidth,cellHeight);
-        imageCells[3]= new Rectangle2D(cellWidth*4,0,cellWidth,cellHeight);
-        imageCells[4]= new Rectangle2D(cellWidth,cellHeight,cellWidth-1,cellHeight-9);
-        imageCells[5]= new Rectangle2D(cellWidth*2,cellHeight,cellWidth,cellHeight);
-        imageCells[6]= new Rectangle2D(cellWidth*3,cellHeight,cellWidth-1,cellHeight);
-        imageCells[7]= new Rectangle2D(cellWidth*4,cellHeight,cellWidth,cellHeight);
-
-        //klatki do skoku
-
-        viewOfMyPlayer.setViewport(imageCells[0]);
-        viewOfMyPlayer.setImage(image);
-        viewOfMyPlayer.setFitWidth(60.0);
-        viewOfMyPlayer.setFitHeight(105.0); */
         width=60.0;
         height=105.0;
         jumping=false;
         jumpingFrameIndex=0;
-        //myTimer.start();
-        timeFrame=0;
-        cellFrame=0;
     }
 
-   /* public ImageView getViewOfMyPlayer() {
-        return viewOfMyPlayer;
-    } */
 
     public void setX (double newX)
     {
         xLevel=newX;
-        //viewOfMyPlayer.setX(xLevel);
 
     }
 
     public void setY(double newY)
     {
         yLevel=newY;
-        //viewOfMyPlayer.setY(yLevel);
-
     }
 
     public double getX() {
@@ -95,13 +54,11 @@ public class Player implements Collidable {
     @Override
     public double getWidth() {
         return width;
-        //return viewOfMyPlayer.getFitWidth();
     }
 
     @Override
     public double getHeight() {
         return height;
-        //return viewOfMyPlayer.getFitHeight();
     }
 
     public void setVelocity(double xx, double yy)
@@ -126,7 +83,6 @@ public class Player implements Collidable {
     {
         if(jumpingFrameIndex==0) {
             setVelocity(getVelocity().getX()+0,getVelocity().getY()+(-4)); setInAir(true);
-            //setVelocityView(new Point2D(getVelocityView().getX()+0,getVelocityView().getY()+(-4)));
         }
         if(jumpingFrameIndex!=40) ++jumpingFrameIndex;
         else {
@@ -174,30 +130,21 @@ public class Player implements Collidable {
     {
         if(velocityLevel.getY()!=0 && !jumping && colliding) {
             setVelocity(velocityLevel.getX(),0);
-            //setVelocityView(new Point2D(velocityView.getX(),0));
             setJumping(false);
         }
         xLevel+=velocityLevel.getX();
         yLevel+=velocityLevel.getY();
-        /*xView+=velocityView.getX();
-        yView+=velocityView.getY();
-        viewOfMyPlayer.setTranslateX(xView);
-        viewOfMyPlayer.setTranslateY(yView); */
 
         if(isJumping())
         {
             jump();
         }
-        //setAnimation(moving);
     }
     public void setJumpingFrameIndex(int i)
     {
         jumpingFrameIndex=i;
     }
 
-    /*public Rectangle2D getImageCells(int i) {
-        return imageCells[i];
-    } */
 
     public boolean isInAir() {
         return inAir;
@@ -206,42 +153,9 @@ public class Player implements Collidable {
     public void setInAir(boolean inAir) {
         this.inAir = inAir;
     }
-    /*public void setAnimation(boolean moving) //set Animation tylko patrzy czy po xLevel,yLevel itd. , bo na widoku mozemy stac w miejscu, a tak naprawde idziemy
-    {
-        timeFrame=(++timeFrame)%10;
-        cellFrame=(++cellFrame)%4;
-        if(velocityLevel.getX()==0 && velocityLevel.getY()==0 && !isInAir() &&!moving) viewOfMyPlayer.setViewport(imageCells[0]); //podstawowy widok bohatera
-        else if(moving&&velocityLevel.getY()==0 && !isInAir())
-        {
-            if(timeFrame==0)
-            {
-                viewOfMyPlayer.setViewport(imageCells[cellFrame]);
-            }
-
-        }
-        if(isInAir()&&velocityLevel.getY()<0) viewOfMyPlayer.setViewport(imageCells[5]);
-        if(isInAir()&&velocityLevel.getY()==0) viewOfMyPlayer.setViewport(imageCells[6]);
-        if(isInAir()&&velocityLevel.getY()>0) viewOfMyPlayer.setViewport(imageCells[7]);
-    } */
 
     public int getJumpingFrameIndex() {
         return jumpingFrameIndex;
-    }
-
-    public double getxView() {
-        return xView;
-    }
-
-    public double getyView() {
-        return yView;
-    }
-
-    public Point2D getVelocityView() {
-        return velocityView;
-    }
-
-    public void setVelocityView(Point2D velocityView) {
-        this.velocityView = velocityView;
     }
 
 }
