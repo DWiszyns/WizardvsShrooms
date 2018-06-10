@@ -38,7 +38,7 @@ public class GameScene extends Scene {
             Collidable.typeOfCollision x;
             // we need to make sure that we don't leave the area that we can see
             if (moving) {
-                if (myPlayerView.getPlayer().getVelocity().getX() > 0) {
+                if (myPlayerView.getPlayer().getVelocity().getX() > 0) { //here we check if our Camera doesn't go too far
                     if (myPlayerView.getPlayer().getX() <= 300.0 || cameraView.getMinX() >= 1229) {
                         myPlayerView.setVelocityView(new Point2D(1, myPlayerView.getVelocityView().getY())); //ustawiamy ruch w lewo
                         cameraViewVelocity = new Point2D(0.0, cameraViewVelocity.getY());
@@ -47,8 +47,13 @@ public class GameScene extends Scene {
                         // System.out.println(cameraViewVelocity.getX() + " " + cameraViewVelocity.getY());
                         cameraViewVelocity = new Point2D(1.0, cameraViewVelocity.getY());
                     }
+                    if(myPlayerView.getPlayer().getX()+myPlayerView.getPlayer().getWidth()>=1844){ // we have to check that we don't go too far
+                        myPlayerView.getPlayer().setVelocity(0,myPlayerView.getPlayer().getVelocity().getY());
+                        myPlayerView.setVelocityView(new Point2D(0, myPlayerView.getVelocityView().getY())); //ustawiamy ruch w lewo
+                        cameraViewVelocity = new Point2D(0.0, cameraViewVelocity.getY());
+                    }
                 }
-                else{
+                else if(myPlayerView.getPlayer().getVelocity().getX()<0){
                     if (myPlayerView.getPlayer().getX() >= 1529.0 || cameraView.getMinX()+cameraViewSize.getX() <= 615) {
                         myPlayerView.setVelocityView(new Point2D(-1, myPlayerView.getVelocityView().getY())); //ustawiamy ruch w lewo
                         cameraViewVelocity = new Point2D(0.0, cameraViewVelocity.getY());
@@ -56,6 +61,11 @@ public class GameScene extends Scene {
                         myPlayerView.setVelocityView(new Point2D(0, myPlayerView.getVelocityView().getY()));
                         // System.out.println(cameraViewVelocity.getX() + " " + cameraViewVelocity.getY());
                         cameraViewVelocity = new Point2D(-1.0, cameraViewVelocity.getY());
+                    }
+                    if(myPlayerView.getPlayer().getX()<=0){ // we have to check that we don't go too far
+                        myPlayerView.getPlayer().setVelocity(0,myPlayerView.getPlayer().getVelocity().getY());
+                        myPlayerView.setVelocityView(new Point2D(0, myPlayerView.getVelocityView().getY())); //ustawiamy ruch w lewo
+                        cameraViewVelocity = new Point2D(0.0, cameraViewVelocity.getY());
                     }
                 }
             }
@@ -89,7 +99,8 @@ public class GameScene extends Scene {
                     }
                     // System.out.println(x);
                 }
-                flagView.update(cameraViewVelocity.getX());
+                if((myPlayerView.getyView()+myPlayerView.getPlayer().getHeight())>=600) SceneManager.getInstance().changeScene(SceneManager.currScene.Lose); //if we fall under our map we lose
+                flagView.update(cameraViewVelocity.getX()); //we update our flag
                 //if(enemies.isEmpty()) System.out.println("nie ma ich kurwa no nie ma");
                 if (((x = myPlayerView.getPlayer().isColliding(flagView.getFlag())) != NO) && enemies.isEmpty()) {
                     //we check whether we passed the last available number or not
@@ -110,6 +121,7 @@ public class GameScene extends Scene {
                 //System.out.println(flagView.getxView()+" "+flagView.getyView()+" "+myPlayerView.getxView()+" "+myPlayerView.getyView());
                 cameraView = new Rectangle2D(cameraView.getMinX() + cameraViewVelocity.getX(), cameraView.getMinY(), cameraView.getWidth(), cameraView.getHeight());
                 background.setViewport(cameraView);
+                if((myPlayerView.getyView()+myPlayerView.getPlayer().getHeight())>=600) SceneManager.getInstance().changeScene(SceneManager.currScene.Lose); //if we fall under our map we lose
                 if (SceneManager.getInstance().getStage().getScene().getClass() != GameScene.class) collisionTimer.stop(); //we need to turn off our scene if we're doing something else
                 //we don't want to have 100 scenes opened at the same time
 

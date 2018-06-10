@@ -1,21 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/main/java/sample/GameScene.java" line="85" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/src/main/java/sample/GameScene.java" line="95" mnemonic="9" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/ChooseLevelView.java" afterPath="$PROJECT_DIR$/src/main/java/sample/ChooseLevelView.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/ChooseSaveScene.java" afterPath="$PROJECT_DIR$/src/main/java/sample/ChooseSaveScene.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/ChooseYourNameScene.java" afterPath="$PROJECT_DIR$/src/main/java/sample/ChooseYourNameScene.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/sample/GameScene.java" afterPath="$PROJECT_DIR$/src/main/java/sample/GameScene.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/Level.java" afterPath="$PROJECT_DIR$/src/main/java/sample/Level.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/LoseView.java" afterPath="$PROJECT_DIR$/src/main/java/sample/LoseView.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/SceneManager.java" afterPath="$PROJECT_DIR$/src/main/java/sample/SceneManager.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sample/WinView.java" afterPath="$PROJECT_DIR$/src/main/java/sample/WinView.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/save1.txt" afterPath="$PROJECT_DIR$/src/main/resources/save1.txt" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/save3.txt" afterPath="$PROJECT_DIR$/src/main/resources/save3.txt" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/save4.txt" afterPath="$PROJECT_DIR$/src/main/resources/save4.txt" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -91,14 +81,14 @@
       <file leaf-file-name="GameScene.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/sample/GameScene.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
-              <caret line="57" column="58" lean-forward="false" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
+            <state relative-caret-position="301">
+              <caret line="48" column="21" lean-forward="true" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1161#7625#0" expanded="true" />
-                <element signature="e#7624#7625#0" expanded="true" />
-                <element signature="e#12055#12056#0" expanded="true" />
-                <element signature="e#12084#12085#0" expanded="true" />
+                <element signature="e#1161#9092#0" expanded="true" />
+                <element signature="e#9091#9092#0" expanded="true" />
+                <element signature="e#13522#13523#0" expanded="true" />
+                <element signature="e#13551#13552#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -280,8 +270,8 @@
         <option value="$PROJECT_DIR$/src/main/java/sample/ChooseSaveScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/ChooseYourNameScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/SceneManager.java" />
-        <option value="$PROJECT_DIR$/src/main/java/sample/GameScene.java" />
         <option value="$PROJECT_DIR$/src/main/java/sample/Level.java" />
+        <option value="$PROJECT_DIR$/src/main/java/sample/GameScene.java" />
       </list>
     </option>
   </component>
@@ -661,12 +651,12 @@
       <workItem from="1528440994269" duration="20643000" />
       <workItem from="1528531552280" duration="3893000" />
       <workItem from="1528573729005" duration="20836000" />
-      <workItem from="1528630452814" duration="20586000" />
+      <workItem from="1528630452814" duration="22021000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157404000" />
+    <option name="totallyTimeSpent" value="158839000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -792,13 +782,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/sample/GameScene.java</url>
-          <line>181</line>
+          <line>193</line>
           <properties />
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/sample/GameScene.java</url>
-          <line>159</line>
+          <line>171</line>
           <properties />
           <option name="timeStamp" value="8" />
         </line-breakpoint>
@@ -1230,20 +1220,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/SceneManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="73" column="49" lean-forward="false" selection-start-line="73" selection-start-column="49" selection-end-line="73" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2998#2999#0" expanded="true" />
-            <element signature="e#3042#3043#0" expanded="true" />
-            <element signature="e#3088#3089#0" expanded="true" />
-            <element signature="e#3128#3129#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/sample/Level.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="469">
@@ -1263,16 +1239,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/sample/GameScene.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/SceneManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="57" column="58" lean-forward="false" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
+        <state relative-caret-position="446">
+          <caret line="73" column="49" lean-forward="false" selection-start-line="73" selection-start-column="49" selection-end-line="73" selection-end-column="49" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1161#7625#0" expanded="true" />
-            <element signature="e#7624#7625#0" expanded="true" />
-            <element signature="e#12055#12056#0" expanded="true" />
-            <element signature="e#12084#12085#0" expanded="true" />
+            <element signature="e#2998#2999#0" expanded="true" />
+            <element signature="e#3042#3043#0" expanded="true" />
+            <element signature="e#3088#3089#0" expanded="true" />
+            <element signature="e#3128#3129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/sample/GameScene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="48" column="21" lean-forward="true" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1161#9092#0" expanded="true" />
+            <element signature="e#9091#9092#0" expanded="true" />
+            <element signature="e#13522#13523#0" expanded="true" />
+            <element signature="e#13551#13552#0" expanded="true" />
           </folding>
         </state>
       </provider>
