@@ -29,6 +29,7 @@ public class GameScene extends Scene {
     private final Point2D cameraViewSize = new Point2D(615,308);
     private FlagView flagView;
     private boolean moving = false;
+    private int whichLevel;
     private AnimationTimer collisionTimer = new AnimationTimer() { //timer obslugujacy kolizje oraz ruch bohatera
         @Override
         public void handle(long now) { //
@@ -69,6 +70,9 @@ public class GameScene extends Scene {
            if(enemies.isEmpty()) System.out.println("nie ma ich kurwa no nie ma");
            if(((x = myPlayerView.getPlayer().isColliding(flagView.getFlag())) != NO) && enemies.isEmpty()){
                SceneManager.getInstance().changeScene(SceneManager.currScene.Win);
+               // wygrales musisz dostac ekran z wygrana z ktorego mozesz powtorzyc lvl lub wrocic do twojego levelmenu
+               //musi sie tez zwiekszyc liczba poziomow mozliwych dla cb
+               //moze GameScene musi miec info o Savie
             }
             System.out.println(x);
             if(!collidingwithPlatform)
@@ -93,6 +97,7 @@ public class GameScene extends Scene {
         myPane = (AnchorPane) getRoot();
         myPane.setPrefSize(600,600);
         myLevel=new Level(whichLevel);
+        this.whichLevel = whichLevel;
 
         cameraView=new Rectangle2D(cameraViewVelocity.getX(), cameraViewVelocity.getY(),cameraViewSize.getX(),cameraViewSize.getY());
         background = myLevel.getBackground();

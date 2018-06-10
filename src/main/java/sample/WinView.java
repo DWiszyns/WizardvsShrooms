@@ -7,7 +7,7 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
-import static sample.SceneManager.currScene.ChooseLevelView;
+import static sample.SceneManager.currScene.*;
 import static sample.SceneManager.currScene.Game1;
 import static sample.SceneManager.currScene.Menu;
 
@@ -38,7 +38,7 @@ public class WinView extends Scene{
         reTakeLevel.setPrefSize(100.0,60.0);
 
         levelMenu = new Button("Go to Level Menu");
-        levelMenu.setOnAction(e -> SceneManager.getInstance().changeScene(ChooseLevelView));
+        levelMenu.setOnAction(e -> SceneManager.getInstance().changeScene(ChooseLevelView1));
         levelMenu.setLayoutX(180.0);
         levelMenu.setLayoutY(240.0);
         levelMenu.setPrefSize(150.0,60.0);

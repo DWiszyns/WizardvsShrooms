@@ -17,7 +17,7 @@ public class ChooseLevelView extends Scene {
     private Button level3;
     private Label myLabel;
 
-    public ChooseLevelView()
+    public ChooseLevelView(int howManyLevels)
     {
         super(new AnchorPane());
         myPane = (AnchorPane) this.getRoot();
@@ -37,13 +37,13 @@ public class ChooseLevelView extends Scene {
         level1.setPrefSize(30.0,30.0);
 
         level2 = new Button("2");
-        level2.setOnAction(e -> SceneManager.getInstance().changeScene(Game2));
+        if(howManyLevels>1) level2.setOnAction(e -> SceneManager.getInstance().changeScene(Game2));
         level2.setLayoutX(260.0);
         level2.setLayoutY(240.0);
         level2.setPrefSize(30.0,30.0);
 
         level3 = new Button("3");
-        level3.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
+        if(howManyLevels>2)level3.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
         level3.setLayoutX(315.0);
         level3.setLayoutY(240.0);
         level3.setPrefSize(30.0,30.0);

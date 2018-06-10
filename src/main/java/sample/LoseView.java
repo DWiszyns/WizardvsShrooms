@@ -37,7 +37,7 @@ public class LoseView extends Scene {
         reTakeLevel.setPrefSize(100.0,60.0);
 
         levelMenu = new Button("Go to Level Menu");
-        levelMenu.setOnAction(e -> SceneManager.getInstance().changeScene(ChooseLevelView));
+        levelMenu.setOnAction(e -> SceneManager.getInstance().changeScene(ChooseLevelView1));
         levelMenu.setLayoutX(180.0);
         levelMenu.setLayoutY(240.0);
         levelMenu.setPrefSize(150.0,60.0);

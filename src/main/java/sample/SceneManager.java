@@ -16,19 +16,24 @@ public class SceneManager {
 
     private Stage stage;
 
-    public enum currScene {Menu,Game1,Game2,ChooseLevelView,Instructions,Lose,Win};
+    public enum currScene {Menu,Game1,Game2,ChooseLevelView1,ChooseLevelView2,ChooseLevelView3,Instructions,Lose,Win,ChooseSave,ChooseYourName};
     private Map<currScene,Scene> sceneMap = new HashMap<>();
     private EventHandler<KeyEvent> myEscapeHandler;
+    private currScene prevScene;
 
 
     private SceneManager() {
         stage = new Stage();
 
         sceneMap.put(currScene.Menu,new MainMenu());
-        sceneMap.put(currScene.ChooseLevelView,new ChooseLevelView());
+        sceneMap.put(currScene.ChooseLevelView1,new ChooseLevelView(1));
+        sceneMap.put(currScene.ChooseLevelView2,new ChooseLevelView(2));
+        sceneMap.put(currScene.ChooseLevelView3,new ChooseLevelView(3));
         sceneMap.put(currScene.Instructions, new InstructionsView());
         sceneMap.put(currScene.Lose,new LoseView());
         sceneMap.put(currScene.Win, new WinView());
+        sceneMap.put(currScene.ChooseYourName, new ChooseYourNameScene());
+        //sceneMap.put(currScene.ChooseSave,new ChooseSaveScene());
         stage.setTitle("Wizard vs Shrooms");
         myEscapeHandler = event -> {
             if(event.getEventType()==KeyEvent.KEY_PRESSED)
@@ -37,6 +42,7 @@ public class SceneManager {
             }
         };
         changeScene(currScene.Menu);
+        prevScene = currScene.Menu;
     }
 
     public static SceneManager getInstance() {
@@ -59,6 +65,10 @@ public class SceneManager {
         else if(sceneName==currScene.Game2){
             sceneMap.put(currScene.Game2,new GameScene(2));
             sceneMap.remove(currScene.Game1);
+        }
+        else if(sceneName==currScene.ChooseSave){ //we need to update our save menu regulary, because we need change saves
+            sceneMap.remove(currScene.ChooseSave);
+            sceneMap.put(currScene.ChooseSave,new ChooseSaveScene());
         }
         stage.setScene(sceneMap.get(sceneName));
         stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED,myEscapeHandler);
