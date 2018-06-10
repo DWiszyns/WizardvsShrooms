@@ -33,14 +33,14 @@ public class Level {
         platforms.add(new Platform(1460,460,385,60));
         //height of my enemy is about 30, width is 40
         enemies.add(new Enemy(300,425));
-       /* enemies.add(new Enemy(800,450));
+        enemies.add(new Enemy(800,450));
         enemies.add(new Enemy(600,490));
         enemies.add(new Enemy(1000,450));
         enemies.add(new Enemy(1040,450));
         enemies.add(new Enemy(1080,450));
-        enemies.add(new Enemy(1600,430)); */
+        enemies.add(new Enemy(1600,430));
 
-        flag = new Flag(300,360);
+        flag = new Flag(1750,360);
 
     }
     public void initializeLevel2()
@@ -67,6 +67,23 @@ public class Level {
     }
     public void initializeLevel3()
     {
+        Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("new_background.png"));
+        background = new ImageView(image);
+        platforms.add(new Platform(0,455,310,60));
+        platforms.add(new Platform(300.0,520.0,400.0,60.0));
+        platforms.add(new Platform(710,480.0,200,60.0));
+        platforms.add(new Platform(950,480,500,60));
+        platforms.add(new Platform(1460,460,385,60));
+        //height of my enemy is about 30, width is 40
+        enemies.add(new Enemy(300,425));
+        enemies.add(new Enemy(800,450));
+        enemies.add(new Enemy(600,490));
+        enemies.add(new Enemy(1000,450));
+        enemies.add(new Enemy(1040,450));
+        enemies.add(new Enemy(1080,450));
+        enemies.add(new Enemy(1600,430));
+
+        flag = new Flag(310,420);
 
     }
 

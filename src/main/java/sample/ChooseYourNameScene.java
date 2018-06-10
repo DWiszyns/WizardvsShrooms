@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
-import static sample.SceneManager.currScene.ChooseLevelView1;
+import static sample.SceneManager.currScene.*;
 
 public class ChooseYourNameScene extends Scene {
     private AnchorPane myPane;
@@ -31,14 +31,6 @@ public class ChooseYourNameScene extends Scene {
         nameOfSaveInput.setMaxWidth(200);
         nameOfSaveInput.setMaxHeight(60);
 
-        execButton = new Button("Create");
-        execButton.setOnAction((ActionEvent e) ->
-        {
-            SceneManager.getInstance().changeScene(ChooseLevelView1);
-        });
-        execButton.setLayoutX(240.0);
-        execButton.setLayoutY(300.0);
-        execButton.setPrefSize(100.0,60.0);
 
         myLabel= new Label("Enter your desired name");
         myLabel.setFont(new Font("Bauhaus 93",31.0));
@@ -61,7 +53,8 @@ public class ChooseYourNameScene extends Scene {
             }
             else { //if there is any free we create save and start the game
                 SaveManager.getInstance().createSave(nameOfSaveInput.getText(),x);
-                SceneManager.getInstance().changeScene(ChooseLevelView1);
+                SceneManager.getInstance().setWhichSave(x);
+                SceneManager.getInstance().changeScene(ChooseLevel);
             }
         });
         execButton.setLayoutX(240.0);

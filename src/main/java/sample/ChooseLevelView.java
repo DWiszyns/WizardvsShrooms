@@ -31,19 +31,28 @@ public class ChooseLevelView extends Scene {
         myLabel.setLayoutY(135.0);
 
         level1 = new Button("1");
-        level1.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
+        level1.setOnAction(e -> {
+            SceneManager.getInstance().setWhichLevel(1);
+            SceneManager.getInstance().changeScene(Game);
+        });
         level1.setLayoutX(205.0);
         level1.setLayoutY(240.0);
         level1.setPrefSize(30.0,30.0);
 
         level2 = new Button("2");
-        if(howManyLevels>1) level2.setOnAction(e -> SceneManager.getInstance().changeScene(Game2));
+        if(howManyLevels>1) level2.setOnAction(e -> {
+            SceneManager.getInstance().setWhichLevel(2);
+            SceneManager.getInstance().changeScene(Game);
+        });
         level2.setLayoutX(260.0);
         level2.setLayoutY(240.0);
         level2.setPrefSize(30.0,30.0);
 
         level3 = new Button("3");
-        if(howManyLevels>2)level3.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
+        if(howManyLevels>2)level3.setOnAction(e -> {
+            SceneManager.getInstance().setWhichLevel(3);
+            SceneManager.getInstance().changeScene(Game);
+        });
         level3.setLayoutX(315.0);
         level3.setLayoutY(240.0);
         level3.setPrefSize(30.0,30.0);

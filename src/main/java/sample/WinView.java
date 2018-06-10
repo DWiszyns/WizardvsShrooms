@@ -8,8 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 import static sample.SceneManager.currScene.*;
-import static sample.SceneManager.currScene.Game1;
-import static sample.SceneManager.currScene.Menu;
+
 
 public class WinView extends Scene{
     private AnchorPane myPane;
@@ -32,13 +31,13 @@ public class WinView extends Scene{
         myLabel.setLayoutY(135.0);
 
         reTakeLevel = new Button("Try again");
-        reTakeLevel.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
+        reTakeLevel.setOnAction(e -> SceneManager.getInstance().changeScene(Game));
         reTakeLevel.setLayoutX(40.0);
         reTakeLevel.setLayoutY(240.0);
         reTakeLevel.setPrefSize(100.0,60.0);
 
         levelMenu = new Button("Go to Level Menu");
-        levelMenu.setOnAction(e -> SceneManager.getInstance().changeScene(ChooseLevelView1));
+        levelMenu.setOnAction(e -> SceneManager.getInstance().changeScene(ChooseLevel));
         levelMenu.setLayoutX(180.0);
         levelMenu.setLayoutY(240.0);
         levelMenu.setPrefSize(150.0,60.0);

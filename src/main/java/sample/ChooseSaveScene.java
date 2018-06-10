@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 import static sample.SceneManager.currScene.*;
-import static sample.SceneManager.currScene.Game2;
 
 public class ChooseSaveScene extends Scene {
     private AnchorPane myPane;
@@ -33,60 +32,54 @@ public class ChooseSaveScene extends Scene {
         myLabel.setLayoutY(135.0);
 
         save1 = new Button(SaveManager.getInstance().getSave(0).getNameOfOurUser());
-        save1.setOnAction(e -> {
-            if(SaveManager.getInstance().getSave(0).getHowManyLevelsAvailable()==1) SceneManager.getInstance().changeScene(ChooseLevelView1);
-            else if(SaveManager.getInstance().getSave(0).getHowManyLevelsAvailable()==2) SceneManager.getInstance().changeScene(ChooseLevelView2);
-            else if(SaveManager.getInstance().getSave(0).getHowManyLevelsAvailable()==3) SceneManager.getInstance().changeScene(ChooseLevelView3);
+        if(!SaveManager.getInstance().getSave(0).isEmpty()) save1.setOnAction(e -> {
+            SceneManager.getInstance().setWhichSave(0);
+            SceneManager.getInstance().changeScene(ChooseLevel);
         });
         save1.setLayoutX(205.0);
         save1.setLayoutY(200.0);
         save1.setPrefSize(100.0,60.0);
 
         save2 = new Button(SaveManager.getInstance().getSave(1).getNameOfOurUser());
-        save2.setOnAction(e -> {
-            if(SaveManager.getInstance().getSave(1).getHowManyLevelsAvailable()==1) SceneManager.getInstance().changeScene(ChooseLevelView1);
-            else if(SaveManager.getInstance().getSave(1).getHowManyLevelsAvailable()==2) SceneManager.getInstance().changeScene(ChooseLevelView2);
-            else if(SaveManager.getInstance().getSave(1).getHowManyLevelsAvailable()==3) SceneManager.getInstance().changeScene(ChooseLevelView3);
+        if(!SaveManager.getInstance().getSave(1).isEmpty()) save2.setOnAction(e -> {
+            SceneManager.getInstance().setWhichSave(1);
+            SceneManager.getInstance().changeScene(ChooseLevel);
         });
         save2.setLayoutX(205.0);
         save2.setLayoutY(270.0);
         save2.setPrefSize(100.0,60.0);
 
         save3 = new Button(SaveManager.getInstance().getSave(2).getNameOfOurUser());
-        save3.setOnAction(e -> {
-            if(SaveManager.getInstance().getSave(2).getHowManyLevelsAvailable()==1) SceneManager.getInstance().changeScene(ChooseLevelView1);
-            else if(SaveManager.getInstance().getSave(2).getHowManyLevelsAvailable()==2) SceneManager.getInstance().changeScene(ChooseLevelView2);
-            else if(SaveManager.getInstance().getSave(2).getHowManyLevelsAvailable()==3) SceneManager.getInstance().changeScene(ChooseLevelView3);
+        if(!SaveManager.getInstance().getSave(2).isEmpty()) save3.setOnAction(e -> {
+            SceneManager.getInstance().setWhichSave(2);
+            SceneManager.getInstance().changeScene(ChooseLevel);
         });
         save3.setLayoutX(205.0);
         save3.setLayoutY(340.0);
         save3.setPrefSize(100.0,60.0);
 
         save4 = new Button(SaveManager.getInstance().getSave(3).getNameOfOurUser());
-        save4.setOnAction(e ->{
-            if(SaveManager.getInstance().getSave(3).getHowManyLevelsAvailable()==1) SceneManager.getInstance().changeScene(ChooseLevelView1);
-            else if(SaveManager.getInstance().getSave(3).getHowManyLevelsAvailable()==2) SceneManager.getInstance().changeScene(ChooseLevelView2);
-            else if(SaveManager.getInstance().getSave(3).getHowManyLevelsAvailable()==3) SceneManager.getInstance().changeScene(ChooseLevelView3);
+        if(!SaveManager.getInstance().getSave(3).isEmpty()) save4.setOnAction(e ->{
+            SceneManager.getInstance().setWhichSave(3);
+            SceneManager.getInstance().changeScene(ChooseLevel);
         });
         save4.setLayoutX(205.0);
         save4.setLayoutY(410.0);
         save4.setPrefSize(100.0,60.0);
 
         save5 = new Button(SaveManager.getInstance().getSave(4).getNameOfOurUser());
-        save5.setOnAction(e ->{
-            if(SaveManager.getInstance().getSave(4).getHowManyLevelsAvailable()==1) SceneManager.getInstance().changeScene(ChooseLevelView1);
-            else if(SaveManager.getInstance().getSave(4).getHowManyLevelsAvailable()==2) SceneManager.getInstance().changeScene(ChooseLevelView2);
-            else if(SaveManager.getInstance().getSave(4).getHowManyLevelsAvailable()==3) SceneManager.getInstance().changeScene(ChooseLevelView3);
+        if(!SaveManager.getInstance().getSave(4).isEmpty()) save5.setOnAction(e ->{
+            SceneManager.getInstance().setWhichSave(4);
+            SceneManager.getInstance().changeScene(ChooseLevel);
         });
         save5.setLayoutX(205.0);
         save5.setLayoutY(480.0);
         save5.setPrefSize(100.0,60.0);
 
         save6 = new Button(SaveManager.getInstance().getSave(5).getNameOfOurUser());
-        save6.setOnAction(e ->{
-            if(SaveManager.getInstance().getSave(5).getHowManyLevelsAvailable()==1) SceneManager.getInstance().changeScene(ChooseLevelView1);
-            else if(SaveManager.getInstance().getSave(5).getHowManyLevelsAvailable()==2) SceneManager.getInstance().changeScene(ChooseLevelView2);
-            else if(SaveManager.getInstance().getSave(5).getHowManyLevelsAvailable()==3) SceneManager.getInstance().changeScene(ChooseLevelView3);
+        if(!SaveManager.getInstance().getSave(5).isEmpty()) save6.setOnAction(e ->{
+            SceneManager.getInstance().setWhichSave(5);
+            SceneManager.getInstance().changeScene(ChooseLevel);
         });
         save6.setLayoutX(205.0);
         save6.setLayoutY(550.0);

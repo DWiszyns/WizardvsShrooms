@@ -16,19 +16,16 @@ public class SceneManager {
 
     private Stage stage;
 
-    public enum currScene {Menu,Game1,Game2,ChooseLevelView1,ChooseLevelView2,ChooseLevelView3,Instructions,Lose,Win,ChooseSave,ChooseYourName};
+    public enum currScene {Menu,Game,ChooseLevel,Instructions,Lose,Win,ChooseSave,ChooseYourName};
     private Map<currScene,Scene> sceneMap = new HashMap<>();
     private EventHandler<KeyEvent> myEscapeHandler;
-    private currScene prevScene;
-
+    private int whichLevel;
+    private int whichSave;
 
     private SceneManager() {
         stage = new Stage();
 
         sceneMap.put(currScene.Menu,new MainMenu());
-        sceneMap.put(currScene.ChooseLevelView1,new ChooseLevelView(1));
-        sceneMap.put(currScene.ChooseLevelView2,new ChooseLevelView(2));
-        sceneMap.put(currScene.ChooseLevelView3,new ChooseLevelView(3));
         sceneMap.put(currScene.Instructions, new InstructionsView());
         sceneMap.put(currScene.Lose,new LoseView());
         sceneMap.put(currScene.Win, new WinView());
@@ -42,7 +39,9 @@ public class SceneManager {
             }
         };
         changeScene(currScene.Menu);
-        prevScene = currScene.Menu;
+        whichLevel=0;//default values that are not possible
+        whichSave=6;
+
     }
 
     public static SceneManager getInstance() {
@@ -58,13 +57,21 @@ public class SceneManager {
     }
 
     public void changeScene(currScene sceneName) {
-        if(sceneName==currScene.Game1){
-            sceneMap.put(currScene.Game1,new GameScene(1));
-            sceneMap.remove(currScene.Game2);// I'm doing so we're not going at the same time in multiple levels
+        if(sceneName==currScene.Game){
+            sceneMap.remove(currScene.Game);// I'm doing so we're not going at the same time in multiple levels
+            sceneMap.put(currScene.Game,new GameScene(whichLevel,whichSave));
         }
-        else if(sceneName==currScene.Game2){
-            sceneMap.put(currScene.Game2,new GameScene(2));
-            sceneMap.remove(currScene.Game1);
+        else if(sceneName==currScene.ChooseLevel){
+            sceneMap.remove(currScene.ChooseLevel);
+            sceneMap.put(currScene.ChooseLevel,new ChooseLevelView(SaveManager.getInstance().getSave(whichSave).getHowManyLevelsAvailable()));
+        }
+        else if(sceneName==currScene.Win){
+            sceneMap.remove(currScene.Win);
+            sceneMap.put(currScene.Win,new WinView());
+        }
+        if(sceneName==currScene.Lose){
+            sceneMap.remove(currScene.Lose);
+            sceneMap.put(currScene.Lose,new LoseView());
         }
         else if(sceneName==currScene.ChooseSave){ //we need to update our save menu regulary, because we need change saves
             sceneMap.remove(currScene.ChooseSave);
@@ -74,4 +81,11 @@ public class SceneManager {
         stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED,myEscapeHandler);
     }
 
+    public void setWhichLevel(int whichLevel) {
+        this.whichLevel = whichLevel;
+    }
+
+    public void setWhichSave(int whichSave){
+        this.whichSave=whichSave;
+    }
 }
