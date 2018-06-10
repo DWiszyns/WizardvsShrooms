@@ -21,18 +21,27 @@ public class PlayerView {
         Image image = new Image(this.getClass().getClassLoader().getResourceAsStream("pelnaanimacja.png"));
         setPlayer(myPlayer);
         cellWidth= 20;
-        cellHeight= 34;
+        //cellHeight= 34;
+        cellHeight=24;
         xView = player.getX();
         yView = player.getY();
         //here we set the table of animations of our player, all of them have unusual size, so we have to set them manually
-        imageCells[0] = new Rectangle2D(cellWidth,0,cellWidth,cellHeight);
+        /*imageCells[0] = new Rectangle2D(cellWidth,0,cellWidth,cellHeight-3);
         imageCells[1]= new Rectangle2D(cellWidth*2,0,cellWidth,cellHeight);
         imageCells[2]= new Rectangle2D(cellWidth*3,0,cellWidth,cellHeight);
         imageCells[3]= new Rectangle2D(cellWidth*4,0,cellWidth,cellHeight);
         imageCells[4]= new Rectangle2D(cellWidth,cellHeight,cellWidth-1,cellHeight-9);
         imageCells[5]= new Rectangle2D(cellWidth*2,cellHeight,cellWidth,cellHeight);
         imageCells[6]= new Rectangle2D(cellWidth*3,cellHeight,cellWidth-1,cellHeight);
-        imageCells[7]= new Rectangle2D(cellWidth*4,cellHeight,cellWidth,cellHeight);
+        imageCells[7]= new Rectangle2D(cellWidth*4,cellHeight,cellWidth,cellHeight);*/
+        imageCells[0] = new Rectangle2D(cellWidth,10,cellWidth,cellHeight);
+        imageCells[1]= new Rectangle2D(cellWidth*2,10,cellWidth,cellHeight);
+        imageCells[2]= new Rectangle2D(cellWidth*3,10,cellWidth,cellHeight);
+        imageCells[3]= new Rectangle2D(cellWidth*4,10,cellWidth,cellHeight);
+        imageCells[4]= new Rectangle2D(cellWidth,cellHeight,cellWidth-1,cellHeight+1);
+        imageCells[5]= new Rectangle2D(cellWidth*2,cellHeight+11,cellWidth,cellHeight-1);
+        imageCells[6]= new Rectangle2D(cellWidth*3,cellHeight+11,cellWidth-1,cellHeight-1);
+        imageCells[7]= new Rectangle2D(cellWidth*4,cellHeight+11,cellWidth,cellHeight-1);
         viewOfMyPlayer.setViewport(imageCells[0]);
         viewOfMyPlayer.setImage(image);
         viewOfMyPlayer.setFitWidth(60.0);
@@ -53,9 +62,6 @@ public class PlayerView {
         //first we need to update our model
         player.update(colliding,moving);
         //then we update our view
-        /*
-        if(player.getJumpingFrameIndex()==1)setVelocityView(new Point2D(getVelocityView().getX()+0,getVelocityView().getY()+(-4)));
-        if(velocityView.getY()!=0 && !player.isJumping() && colliding) {setVelocityView(new Point2D(velocityView.getX(),0));} // if player is falling and not jumping we sho */
         setVelocityView(new Point2D(velocityView.getX(),player.getVelocity().getY())); //velocity Y should always stay the same, the difference is only in x velocity
                                                                                         //because we can move on our level, but we don't move on our view, our level moves instead
         xView+=velocityView.getX();

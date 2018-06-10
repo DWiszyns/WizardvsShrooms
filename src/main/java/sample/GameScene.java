@@ -27,6 +27,7 @@ public class GameScene extends Scene {
     private EventHandler<KeyEvent> myPressedKeyHandler;
     private Point2D cameraViewVelocity = new Point2D(0,0);
     private final Point2D cameraViewSize = new Point2D(615,308);
+    private FlagView flagView;
     private boolean moving = false;
     private AnimationTimer collisionTimer = new AnimationTimer() { //timer obslugujacy kolizje oraz ruch bohatera
         @Override
@@ -47,23 +48,29 @@ public class GameScene extends Scene {
                    myPlayerView.getPlayer().setInAir(false);
                    myPlayerView.getPlayer().setJumpingFrameIndex(0); //he ain't jumping anymore
                    collidingwithPlatform = true;
-                   System.out.println(myPlayerView.getPlayer().getX()+" "+myPlayerView.getPlayer().getY()+" "+platform.getPlatform().getX()
-                           +" "+(platform.getPlatform().getX()+platform.getPlatform().getWidth())+" "+ platform.getPlatform().getHeight());
+                   /*System.out.println(myPlayerView.getPlayer().getX()+" "+myPlayerView.getPlayer().getY()+" "+platform.getPlatform().getX()
+                           +" "+(platform.getPlatform().getX()+platform.getPlatform().getWidth())+" "+ platform.getPlatform().getHeight()); */
                }
            }
            for(int i=0;i<enemies.size();++i)
            {
-               enemies.get(i).update(cameraViewVelocity.getX());
+               enemies.get(i).update(cameraViewVelocity.getX()); //we're updating their position on our view
                if ((x = myPlayerView.getPlayer().isColliding(enemies.get(i).getEnemy())) == UP) {
                    System.out.println("chociaz raz");
                    myPane.getChildren().remove(enemies.get(i).getViewOfMyEnemy());
                    enemies.remove(i);
                }
                 else if(x == SIDE){
-                   exit(0);
+                   SceneManager.getInstance().changeScene(SceneManager.currScene.Lose);
                }
               // System.out.println(x);
            }
+           flagView.update(cameraViewVelocity.getX());
+           if(enemies.isEmpty()) System.out.println("nie ma ich kurwa no nie ma");
+           if(((x = myPlayerView.getPlayer().isColliding(flagView.getFlag())) != NO) && enemies.isEmpty()){
+               SceneManager.getInstance().changeScene(SceneManager.currScene.Win);
+            }
+            System.out.println(x);
             if(!collidingwithPlatform)
             {
                 myPlayerView.getPlayer().setVelocity(myPlayerView.getPlayer().getVelocity().getX(),myPlayerView.getPlayer().getVelocity().getY()+0.2); //pseudograwitacja
@@ -71,18 +78,21 @@ public class GameScene extends Scene {
                 myPlayerView.getPlayer().setInAir(true);
             }
             myPlayerView.update(collidingwithPlatform,moving);
+            System.out.println(flagView.getxView()+" "+flagView.getyView()+" "+myPlayerView.getxView()+" "+myPlayerView.getyView());
            cameraView= new Rectangle2D(cameraView.getMinX()+cameraViewVelocity.getX(),cameraView.getMinY(),cameraView.getWidth(),cameraView.getHeight());
            background.setViewport(cameraView);
+           if(SceneManager.getInstance().getStage().getScene().getClass()!=GameScene.class) collisionTimer.stop(); //we need to turn off our scene if we're doing something else
+                                                                                                                    //we don't want to have 100 scenes opened at the same time
 
         }
     };
 
-    public GameScene()
+    public GameScene(int whichLevel)
     {
         super(new AnchorPane());
         myPane = (AnchorPane) getRoot();
         myPane.setPrefSize(600,600);
-        myLevel=new Level(1);
+        myLevel=new Level(whichLevel);
 
         cameraView=new Rectangle2D(cameraViewVelocity.getX(), cameraViewVelocity.getY(),cameraViewSize.getX(),cameraViewSize.getY());
         background = myLevel.getBackground();
@@ -103,6 +113,12 @@ public class GameScene extends Scene {
         for(Enemy enemy: myLevel.getEnemies()){
             enemies.add(new EnemyView(enemy));
         }
+
+        flagView = new FlagView(myLevel.getFlag());
+        flagView.getViewOfMyFlag().setTranslateX(flagView.getxView());
+        flagView.getViewOfMyFlag().setTranslateY(flagView.getyView());
+        myPane.getChildren().add(flagView.getViewOfMyFlag());
+
         for(PlatformView platform: platformViews) myPane.getChildren().add(platform.getViewOfMyPlatform());
         for(EnemyView enemy: enemies) myPane.getChildren().add(enemy.getViewOfMyEnemy());
         //jego definicja
@@ -111,7 +127,7 @@ public class GameScene extends Scene {
                 if (event.getCode() == KeyCode.D) {
                     moving = true;
                     myPlayerView.getPlayer().setVelocity(1,myPlayerView.getPlayer().getVelocity().getY());
-                    if(myPlayerView.getPlayer().getX()<=300.0|| myPlayerView.getPlayer().getX()>=1500) myPlayerView.setVelocityView(new Point2D(1,myPlayerView.getVelocityView().getY())); //ustawiamy ruch w lewo
+                    if(myPlayerView.getPlayer().getX()<=300.0|| myPlayerView.getPlayer().getX()>=1550) myPlayerView.setVelocityView(new Point2D(1,myPlayerView.getVelocityView().getY())); //ustawiamy ruch w lewo
                     else {
                         myPlayerView.setVelocityView(new Point2D(0,myPlayerView.getVelocityView().getY()));
                         System.out.println(cameraViewVelocity.getX()+" "+cameraViewVelocity.getY());
@@ -148,6 +164,7 @@ public class GameScene extends Scene {
 
         };
         this.setEventHandler(KeyEvent.ANY,myPressedKeyHandler); //moj EventHandler
+
         collisionTimer.start();
 
     }
@@ -158,10 +175,6 @@ public class GameScene extends Scene {
         return myPane;
     }
 
-    public void reset()
-    {
-
-    }
 
 
 }

@@ -35,7 +35,7 @@ public class MainMenu extends Scene{
         myLabel.setLayoutY(135.0);
 
         newGame = new Button("New Game");
-        newGame.setOnAction(e -> SceneManager.getInstance().changeScene(Game));
+        newGame.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
         newGame.setLayoutX(260.0);
         newGame.setLayoutY(205.0);
         newGame.setPrefSize(80.0,25.0);

@@ -7,7 +7,8 @@ import javafx.scene.effect.BlendMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
-import static sample.SceneManager.currScene.Game;
+
+import static sample.SceneManager.currScene.*;
 
 public class ChooseLevelView extends Scene {
     private AnchorPane myPane;
@@ -30,19 +31,19 @@ public class ChooseLevelView extends Scene {
         myLabel.setLayoutY(135.0);
 
         level1 = new Button("1");
-        level1.setOnAction(e -> SceneManager.getInstance().changeScene(Game));
+        level1.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
         level1.setLayoutX(205.0);
         level1.setLayoutY(240.0);
         level1.setPrefSize(30.0,30.0);
 
         level2 = new Button("2");
-        level2.setOnAction(e -> SceneManager.getInstance().changeScene(Game));
+        level2.setOnAction(e -> SceneManager.getInstance().changeScene(Game2));
         level2.setLayoutX(260.0);
         level2.setLayoutY(240.0);
         level2.setPrefSize(30.0,30.0);
 
         level3 = new Button("3");
-        level3.setOnAction(e -> SceneManager.getInstance().changeScene(Game));
+        level3.setOnAction(e -> SceneManager.getInstance().changeScene(Game1));
         level3.setLayoutX(315.0);
         level3.setLayoutY(240.0);
         level3.setPrefSize(30.0,30.0);

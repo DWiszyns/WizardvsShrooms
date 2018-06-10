@@ -10,6 +10,7 @@ public class Level {
     private ImageView background;
     private List<Enemy> enemies = new ArrayList<Enemy>();
     private List<Platform> platforms = new ArrayList<Platform>();
+    private Flag flag;
     private int whichLevel;
     public Level(int levelChooser)
     {
@@ -32,12 +33,14 @@ public class Level {
         platforms.add(new Platform(1460,460,385,60));
         //height of my enemy is about 30, width is 40
         enemies.add(new Enemy(300,425));
-        enemies.add(new Enemy(800,450));
+       /* enemies.add(new Enemy(800,450));
         enemies.add(new Enemy(600,490));
         enemies.add(new Enemy(1000,450));
         enemies.add(new Enemy(1040,450));
         enemies.add(new Enemy(1080,450));
-        enemies.add(new Enemy(1600,430));
+        enemies.add(new Enemy(1600,430)); */
+
+        flag = new Flag(300,360);
 
     }
     public void initializeLevel2()
@@ -57,6 +60,9 @@ public class Level {
         enemies.add(new Enemy(1240,450));
         enemies.add(new Enemy(1280,450));
         enemies.add(new Enemy(1600,430));
+
+        flag = new Flag(1750,360);
+
 
     }
     public void initializeLevel3()
@@ -80,4 +86,7 @@ public class Level {
         return platforms.get(i);
     }
 
+    public Flag getFlag() {
+        return flag;
+    }
 }

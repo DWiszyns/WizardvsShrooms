@@ -16,7 +16,7 @@ public class SceneManager {
 
     private Stage stage;
 
-    public enum currScene {Menu,Game,ChooseLevelView,Instructions};
+    public enum currScene {Menu,Game1,Game2,ChooseLevelView,Instructions,Lose,Win};
     private Map<currScene,Scene> sceneMap = new HashMap<>();
     private EventHandler<KeyEvent> myEscapeHandler;
 
@@ -25,9 +25,10 @@ public class SceneManager {
         stage = new Stage();
 
         sceneMap.put(currScene.Menu,new MainMenu());
-        sceneMap.put(currScene.Game,new GameScene());
         sceneMap.put(currScene.ChooseLevelView,new ChooseLevelView());
         sceneMap.put(currScene.Instructions, new InstructionsView());
+        sceneMap.put(currScene.Lose,new LoseView());
+        sceneMap.put(currScene.Win, new WinView());
         stage.setTitle("Wizard vs Shrooms");
         myEscapeHandler = event -> {
             if(event.getEventType()==KeyEvent.KEY_PRESSED)
@@ -51,6 +52,14 @@ public class SceneManager {
     }
 
     public void changeScene(currScene sceneName) {
+        if(sceneName==currScene.Game1){
+            sceneMap.put(currScene.Game1,new GameScene(1));
+            sceneMap.remove(currScene.Game2);// I'm doing so we're not going at the same time in multiple levels
+        }
+        else if(sceneName==currScene.Game2){
+            sceneMap.put(currScene.Game2,new GameScene(2));
+            sceneMap.remove(currScene.Game1);
+        }
         stage.setScene(sceneMap.get(sceneName));
         stage.getScene().addEventHandler(KeyEvent.KEY_PRESSED,myEscapeHandler);
     }

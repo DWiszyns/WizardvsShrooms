@@ -96,10 +96,13 @@ public class Player implements Collidable {
         if(other.getClass()==Enemy.class) return isCollidingEnemy(other);
         if (xLevel + getWidth() >= other.getX() && xLevel <= other.getX() + other.getWidth())  //sprawdzamy czy x
         {
+            if(other.getClass()==Flag.class) System.out.println("jestesmy");
             if (yLevel + getHeight() + 3 >= other.getY() && yLevel + getHeight() - 3 < other.getY()) return UP;
             else if (yLevel + 3 >= other.getY() + other.getHeight() && yLevel - 3 <= other.getY() + other.getHeight())
                 return DOWN;
             else if (yLevel >= other.getY() && yLevel + getHeight() - 1 <= other.getY() + other.getHeight()) return SIDE;
+            else if (yLevel >= other.getY() && yLevel <= other.getY()+other.getHeight()) return SIDE; // glowa znajduje sie, miedzy gora, a dolem obiektu
+            else if (yLevel + getHeight() >= other.getY() && yLevel+getHeight()<= other.getY()+other.getHeight()) return SIDE; // stopy znajduja sie miedzy gora a dolem obiektu
         }
         return NO;
 
