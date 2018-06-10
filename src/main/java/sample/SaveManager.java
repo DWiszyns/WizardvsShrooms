@@ -32,4 +32,12 @@ public class SaveManager {
         }
         return 6; //if it returns 6 there is no empty space for save
     }
+
+    public boolean isNameTaken(String name){
+        for(int i=0;i<6;++i)
+        {
+            if(name.equals(saveTable[i].getNameOfOurUser())) return true;
+        }
+        return false;
+    }
 }
