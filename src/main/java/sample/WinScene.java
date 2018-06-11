@@ -10,14 +10,14 @@ import javafx.scene.text.Font;
 import static sample.SceneManager.currScene.*;
 
 
-public class WinView extends Scene{
+public class WinScene extends Scene{
     private AnchorPane myPane;
     private Button reTakeLevel;
     private Button levelMenu;
     private Button mainMenu;
     private Label myLabel;
 
-    public WinView()//do poprawy, zeby wracalo do poprzedniego poziomu
+    public WinScene()//do poprawy, zeby wracalo do poprzedniego poziomu
     {
         super(new AnchorPane());
         myPane = (AnchorPane) this.getRoot();

@@ -9,14 +9,14 @@ import javafx.scene.text.Font;
 
 import static sample.SceneManager.currScene.*;
 
-public class LoseView extends Scene {
+public class LoseScene extends Scene {
     private AnchorPane myPane;
     private Button reTakeLevel;
     private Button levelMenu;
     private Button mainMenu;
     private Label myLabel;
 
-    public LoseView() //do poprawy, zeby wracalo do poprzedniego poziomu
+    public LoseScene() //do poprawy, zeby wracalo do poprzedniego poziomu
     {
         super(new AnchorPane());
         myPane = (AnchorPane) this.getRoot();

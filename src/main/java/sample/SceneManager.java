@@ -1,11 +1,9 @@
 package sample;
 
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
@@ -26,9 +24,9 @@ public class SceneManager {
         stage = new Stage();
 
         sceneMap.put(currScene.Menu,new MainMenu());
-        sceneMap.put(currScene.Instructions, new InstructionsView());
-        sceneMap.put(currScene.Lose,new LoseView());
-        sceneMap.put(currScene.Win, new WinView());
+        sceneMap.put(currScene.Instructions, new InstructiuonsScene());
+        sceneMap.put(currScene.Lose,new LoseScene());
+        sceneMap.put(currScene.Win, new WinScene());
         sceneMap.put(currScene.ChooseYourName, new ChooseYourNameScene());
         //sceneMap.put(currScene.ChooseSave,new ChooseSaveScene());
         stage.setTitle("Wizard vs Shrooms");
@@ -67,11 +65,11 @@ public class SceneManager {
         }
         else if(sceneName==currScene.Win){
             sceneMap.remove(currScene.Win);
-            sceneMap.put(currScene.Win,new WinView());
+            sceneMap.put(currScene.Win,new WinScene());
         }
         if(sceneName==currScene.Lose){
             sceneMap.remove(currScene.Lose);
-            sceneMap.put(currScene.Lose,new LoseView());
+            sceneMap.put(currScene.Lose,new LoseScene());
         }
         else if(sceneName==currScene.ChooseSave){ //we need to update our save menu regulary, because we need change saves
             sceneMap.remove(currScene.ChooseSave);

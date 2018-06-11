@@ -12,12 +12,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        /*Scene root = new Scene(SceneManager.getInstance().);
-        primaryStage.setTitle("Wizard vs Shrooms");
-        primaryStage.setScene(root); */
         primaryStage=myManager.getInstance().getStage();
         primaryStage.show();
-        //Thread.sleep(1000);
     }
 
 

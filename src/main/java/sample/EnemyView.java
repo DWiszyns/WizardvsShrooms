@@ -18,11 +18,11 @@ public class EnemyView {
     public EnemyView(Enemy myEnemy)
     {
         setEnemy(myEnemy);
-        photo[0] = new Rectangle2D(0,0,500,430);
-        photo[1] = new Rectangle2D(500,0,500,430);
-        photo[2] = new Rectangle2D(0,430,500,430);
-        photo[3] = new Rectangle2D(500,430,500,430);
-        photo[4] = new Rectangle2D(0,860,500,430);
+        photo[0] = new Rectangle2D(50,0,450,430);
+        photo[1] = new Rectangle2D(500,0,450,430);
+        photo[2] = new Rectangle2D(50,430,450,430);
+        photo[3] = new Rectangle2D(500,430,450,430);
+        photo[4] = new Rectangle2D(50,860,450,420);
         xView=enemy.getX();
         yView=enemy.getY();
         if(myEnemy instanceof MovingEnemy) {

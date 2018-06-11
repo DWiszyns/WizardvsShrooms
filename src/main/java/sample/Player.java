@@ -87,7 +87,6 @@ public class Player implements Collidable {
         if(jumpingFrameIndex!=40) ++jumpingFrameIndex;
         else {
             setJumping(false);
-            System.out.println(xLevel+" "+yLevel+" "+jumpingFrameIndex);
             jumpingFrameIndex=0;
         }
     }
@@ -96,7 +95,6 @@ public class Player implements Collidable {
         if(other.getClass()==Enemy.class) return isCollidingEnemy(other);
         if (xLevel + getWidth() >= other.getX() && xLevel <= other.getX() + other.getWidth())  //sprawdzamy czy x
         {
-            if(other.getClass()==Flag.class) System.out.println("jestesmy");
             if (yLevel + getHeight() + 3 >= other.getY() && yLevel + getHeight() - 3 < other.getY()) return UP;
             else if (yLevel + 3 >= other.getY() + other.getHeight() && yLevel - 3 <= other.getY() + other.getHeight())
                 return DOWN;
@@ -111,15 +109,12 @@ public class Player implements Collidable {
     private typeOfCollision isCollidingEnemy(Collidable other) {
 
             if (yLevel + getHeight() + 3 >= other.getY() && yLevel + getHeight() - 3 < other.getY()) {
-                System.out.println("o tu");
                 if (xLevel + getWidth() >= other.getX() && xLevel + getWidth() <= other.getX() + other.getWidth()) return UP;
                 if (xLevel <= other.getX() && xLevel + getWidth() >= other.getX() + other.getWidth() )return UP; //kiedy jestesmy znacznie wieksi od przeciwnika przyklad      ++++++ - my
                                                                                                         //                                                             ++   - przeciwnik
                 if (xLevel >= other.getX() && xLevel <= other.getX() + other.getWidth()) return UP;
 
             }
-            /*else if (y + 3 >= other.getY() + other.getHeight() && y - 3 <= other.getY() + other.getHeight())
-                return DOWN; */
 
             else if (xLevel + getWidth() >= other.getX() && xLevel + getWidth() <= other.getX() + other.getWidth()){
                 if (yLevel <= other.getY() && yLevel + getHeight() >= other.getY() + other.getHeight()) return SIDE;

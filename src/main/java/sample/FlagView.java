@@ -71,4 +71,8 @@ public class FlagView {
         setAnimation();
 
     }
+
+    public Rectangle2D[] getPhotoFrames() {
+        return photoFrames;
+    }
 }

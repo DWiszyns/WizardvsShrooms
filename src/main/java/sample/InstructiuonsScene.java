@@ -8,7 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 
 
-public class InstructionsView extends Scene {
+public class InstructiuonsScene extends Scene {
     private AnchorPane myPane;
     private Label moveRight;
     private Label moveLeft;
@@ -16,7 +16,7 @@ public class InstructionsView extends Scene {
     private Label myLabel;
     private Label mainGoal;
 
-    public InstructionsView() {
+    public InstructiuonsScene() {
         super(new AnchorPane());
         myPane = (AnchorPane) this.getRoot();
         myPane.setPrefSize(600, 600);
@@ -52,7 +52,7 @@ public class InstructionsView extends Scene {
         mainGoal = new Label("Your main goal of the game is to kill\n all of the mushrooms that you'll see.\n " +
                 "You'll do that by jumping on them. BE CAREFUL!\n If you touch them from the side you'll die. \n" +
                 "Also remember that in this universe gravity exists,\n so don't fall off the platforms.\n" +
-                "The only way to pass the level is to kill\n all of your enemies and go as far right\n as you can in the area. " +
+                "The only way to pass the level is to kill\n all of your enemies and reaching the flag.\n " +
                 "Have fun!");
         mainGoal.setFont(new Font("System 12px",16.0));
         mainGoal.setLayoutX(150.0);

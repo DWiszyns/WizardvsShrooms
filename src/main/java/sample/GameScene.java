@@ -44,7 +44,6 @@ public class GameScene extends Scene {
                         cameraViewVelocity = new Point2D(0.0, cameraViewVelocity.getY());
                     } else {
                         myPlayerView.setVelocityView(new Point2D(0, myPlayerView.getVelocityView().getY()));
-                        // System.out.println(cameraViewVelocity.getX() + " " + cameraViewVelocity.getY());
                         cameraViewVelocity = new Point2D(1.0, cameraViewVelocity.getY());
                     }
                     if(myPlayerView.getPlayer().getX()+myPlayerView.getPlayer().getWidth()>=1844){ // we have to check that we don't go too far
@@ -59,7 +58,6 @@ public class GameScene extends Scene {
                         cameraViewVelocity = new Point2D(0.0, cameraViewVelocity.getY());
                     } else {
                         myPlayerView.setVelocityView(new Point2D(0, myPlayerView.getVelocityView().getY()));
-                        // System.out.println(cameraViewVelocity.getX() + " " + cameraViewVelocity.getY());
                         cameraViewVelocity = new Point2D(-1.0, cameraViewVelocity.getY());
                     }
                     if(myPlayerView.getPlayer().getX()<=0){ // we have to check that we don't go too far
@@ -72,36 +70,29 @@ public class GameScene extends Scene {
                 if (myPlayerView.getPlayer().getJumpingFrameIndex() != 1)
                     for (PlatformView platform : platformViews) { //if he didnt just start jumping check if he is colliding with platform
                         platform.update(cameraViewVelocity.getX());
-                        // if(i==1) System.out.println("Sprawdzone");
                         if (!collidingwithPlatform && (x = myPlayerView.getPlayer().isColliding(platform.getPlatform())) == UP) {
                             if (myPlayerView.getPlayer().isInAir()) {
                                 myPlayerView.getPlayer().setVelocity(myPlayerView.getPlayer().getVelocity().getX(), 0); //jezeli spada na platforme to
                                 myPlayerView.setVelocityView(new Point2D(myPlayerView.getVelocityView().getX(), 0));
-                                //System.out.println("koliduje z"+ platform.getxView());
                             }
                             // }
                             myPlayerView.getPlayer().setJumping(false);
                             myPlayerView.getPlayer().setInAir(false);
                             myPlayerView.getPlayer().setJumpingFrameIndex(0); //he ain't jumping anymore
                             collidingwithPlatform = true;
-                   /*System.out.println(myPlayerView.getPlayer().getX()+" "+myPlayerView.getPlayer().getY()+" "+platform.getPlatform().getX()
-                           +" "+(platform.getPlatform().getX()+platform.getPlatform().getWidth())+" "+ platform.getPlatform().getHeight()); */
                         }
                     }
                 for (int i = 0; i < enemies.size(); ++i) {
                     enemies.get(i).update(cameraViewVelocity.getX(),myPlayerView.getPlayer()); //we're updating their position on our view
                     if ((x = myPlayerView.getPlayer().isColliding(enemies.get(i).getEnemy())) == UP) {
-                        System.out.println("chociaz raz");
                         myPane.getChildren().remove(enemies.get(i).getViewOfMyEnemy());
                         enemies.remove(i);
                     } else if (x == SIDE) {
                         SceneManager.getInstance().changeScene(SceneManager.currScene.Lose);
                     }
-                    // System.out.println(x);
                 }
                 if((myPlayerView.getyView()+myPlayerView.getPlayer().getHeight())>=600) SceneManager.getInstance().changeScene(SceneManager.currScene.Lose); //if we fall under our map we lose
                 flagView.update(cameraViewVelocity.getX()); //we update our flag
-                //if(enemies.isEmpty()) System.out.println("nie ma ich kurwa no nie ma");
                 if (((x = myPlayerView.getPlayer().isColliding(flagView.getFlag())) != NO) && enemies.isEmpty()) {
                     //we check whether we passed the last available number or not
                     int newNumberOfAvaialableLevels = whichLevel == SaveManager.getInstance().getSave(whichSave).getHowManyLevelsAvailable() ? whichLevel + 1 : SaveManager.getInstance().getSave(whichSave).getHowManyLevelsAvailable();
@@ -109,16 +100,12 @@ public class GameScene extends Scene {
                     SceneManager.getInstance().changeScene(SceneManager.currScene.Win);
 
                 }
-                // System.out.println(x);
                 if (!collidingwithPlatform) {
                     myPlayerView.getPlayer().setVelocity(myPlayerView.getPlayer().getVelocity().getX(), myPlayerView.getPlayer().getVelocity().getY() + 0.2); //pseudograwitacja
                     myPlayerView.setVelocityView(new Point2D(myPlayerView.getVelocityView().getX(), myPlayerView.getVelocityView().getY() + 0.2));
                     myPlayerView.getPlayer().setInAir(true);
                 }
-                System.out.println("Gracz: " + myPlayerView.getPlayer().getX() + " " + myPlayerView.getPlayer().getY() +
-                        " " + myPlayerView.getxView() + " " + myPlayerView.getyView());
                 myPlayerView.update(collidingwithPlatform, moving);
-                //System.out.println(flagView.getxView()+" "+flagView.getyView()+" "+myPlayerView.getxView()+" "+myPlayerView.getyView());
                 cameraView = new Rectangle2D(cameraView.getMinX() + cameraViewVelocity.getX(), cameraView.getMinY(), cameraView.getWidth(), cameraView.getHeight());
                 background.setViewport(cameraView);
                 if((myPlayerView.getyView()+myPlayerView.getPlayer().getHeight())>=600) SceneManager.getInstance().changeScene(SceneManager.currScene.Lose); //if we fall under our map we lose
@@ -175,7 +162,6 @@ public class GameScene extends Scene {
                     if(myPlayerView.getPlayer().getX()<=300.0|| myPlayerView.getPlayer().getX()>=1550) myPlayerView.setVelocityView(new Point2D(1,myPlayerView.getVelocityView().getY())); //ustawiamy ruch w lewo
                     else {
                         myPlayerView.setVelocityView(new Point2D(0,myPlayerView.getVelocityView().getY()));
-                       // System.out.println(cameraViewVelocity.getX()+" "+cameraViewVelocity.getY());
                         cameraViewVelocity=new Point2D(1.0,cameraViewVelocity.getY());
                     }
                 }
