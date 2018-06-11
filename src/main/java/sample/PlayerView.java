@@ -26,14 +26,6 @@ public class PlayerView {
         xView = player.getX();
         yView = player.getY();
         //here we set the table of animations of our player, all of them have unusual size, so we have to set them manually
-        /*imageCells[0] = new Rectangle2D(cellWidth,0,cellWidth,cellHeight-3);
-        imageCells[1]= new Rectangle2D(cellWidth*2,0,cellWidth,cellHeight);
-        imageCells[2]= new Rectangle2D(cellWidth*3,0,cellWidth,cellHeight);
-        imageCells[3]= new Rectangle2D(cellWidth*4,0,cellWidth,cellHeight);
-        imageCells[4]= new Rectangle2D(cellWidth,cellHeight,cellWidth-1,cellHeight-9);
-        imageCells[5]= new Rectangle2D(cellWidth*2,cellHeight,cellWidth,cellHeight);
-        imageCells[6]= new Rectangle2D(cellWidth*3,cellHeight,cellWidth-1,cellHeight);
-        imageCells[7]= new Rectangle2D(cellWidth*4,cellHeight,cellWidth,cellHeight);*/
         imageCells[0] = new Rectangle2D(cellWidth,10,cellWidth,cellHeight);
         imageCells[1]= new Rectangle2D(cellWidth*2,10,cellWidth,cellHeight);
         imageCells[2]= new Rectangle2D(cellWidth*3,10,cellWidth,cellHeight);

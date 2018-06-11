@@ -75,7 +75,7 @@ public class Level {
         platforms.add(new Platform(950,480,500,60));
         platforms.add(new Platform(1460,460,385,60));
         //height of my enemy is about 30, width is 40
-        enemies.add(new Enemy(300,425));
+        enemies.add(new MovingEnemy(300,425));
         enemies.add(new Enemy(800,450));
         enemies.add(new Enemy(600,490));
         enemies.add(new Enemy(1000,450));

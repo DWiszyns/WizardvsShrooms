@@ -10,15 +10,29 @@ public class EnemyView {
     private ImageView viewOfMyEnemy=new ImageView(image);
     private double xView;
     private double yView;
-    private final Rectangle2D photo;
+    private final Rectangle2D photo[]= new Rectangle2D[5];
+    private int timeFrame;
+    private int cellFrame;//zeby zawsze chodzil tak samo
+    private boolean sleeping;
 
     public EnemyView(Enemy myEnemy)
     {
         setEnemy(myEnemy);
-        photo = new Rectangle2D(0,860,500,430);
+        photo[0] = new Rectangle2D(0,0,500,430);
+        photo[1] = new Rectangle2D(500,0,500,430);
+        photo[2] = new Rectangle2D(0,430,500,430);
+        photo[3] = new Rectangle2D(500,430,500,430);
+        photo[4] = new Rectangle2D(0,860,500,430);
         xView=enemy.getX();
         yView=enemy.getY();
-        viewOfMyEnemy.setViewport(photo);
+        if(myEnemy instanceof MovingEnemy) {
+            viewOfMyEnemy.setViewport(photo[0]);
+            sleeping = true;
+        }
+        else {
+            viewOfMyEnemy.setViewport(photo[4]);
+            sleeping = false;
+        }
         viewOfMyEnemy.setFitHeight(enemy.getHeight());
         viewOfMyEnemy.setFitWidth(enemy.getWidth());
         viewOfMyEnemy.setTranslateX(xView);
@@ -57,9 +71,36 @@ public class EnemyView {
         viewOfMyEnemy.setTranslateY(y);
     }
 
-    public void update(double cameraX)
+    public void update(double cameraX, Player player)
     {
-        xView=xView-cameraX;
+        enemy.update(player);
+        if(enemy.getVelocityLevel().getX()!=0) setSleeping(false);
+        xView=xView-cameraX+enemy.getVelocityLevel().getX();
         setViewOfMyEnemy(xView,yView);
+        if(enemy instanceof MovingEnemy && sleeping) {
+            setAnimation();
+        }
+        else viewOfMyEnemy.setViewport(photo[4]);
+
     }
+
+    public void setAnimation(){
+        timeFrame=(++timeFrame)%10;
+        cellFrame=(++cellFrame)%4;
+            if(timeFrame==0)
+            {
+                viewOfMyEnemy.setViewport(photo[cellFrame]);
+            }
+
+    }
+
+
+    public void setSleeping(boolean sleeping) {
+        this.sleeping = sleeping;
+        if(!sleeping){
+            viewOfMyEnemy.setViewport(photo[4]);
+        }
+
+    }
+
 }

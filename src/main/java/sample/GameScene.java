@@ -89,7 +89,7 @@ public class GameScene extends Scene {
                         }
                     }
                 for (int i = 0; i < enemies.size(); ++i) {
-                    enemies.get(i).update(cameraViewVelocity.getX()); //we're updating their position on our view
+                    enemies.get(i).update(cameraViewVelocity.getX(),myPlayerView.getPlayer()); //we're updating their position on our view
                     if ((x = myPlayerView.getPlayer().isColliding(enemies.get(i).getEnemy())) == UP) {
                         System.out.println("chociaz raz");
                         myPane.getChildren().remove(enemies.get(i).getViewOfMyEnemy());
@@ -204,6 +204,7 @@ public class GameScene extends Scene {
                     myPlayerView.getPlayer().setVelocity(0,myPlayerView.getPlayer().getVelocity().getY());
                     myPlayerView.setVelocityView(new Point2D(0,myPlayerView.getVelocityView().getY()));
                     myPlayerView.getViewOfMyPlayer().setViewport(myPlayerView.getImageCells(0));
+                    cameraViewVelocity=new Point2D(0.0,cameraViewVelocity.getY());
                 }
             }
 
