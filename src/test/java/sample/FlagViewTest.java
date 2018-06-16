@@ -15,5 +15,6 @@ public class FlagViewTest {
         flagView.setAnimation();
         Rectangle2D currViewPort = flagView.getViewOfMyFlag().getViewport();
         assertEquals(previousViewPort,currViewPort);
+        assertEquals(flagView.getFlag().getX(),flagView.getFlag().getY());
     }
 }

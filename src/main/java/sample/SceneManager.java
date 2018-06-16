@@ -61,7 +61,7 @@ public class SceneManager {
         }
         else if(sceneName==currScene.ChooseLevel){
             sceneMap.remove(currScene.ChooseLevel);
-            sceneMap.put(currScene.ChooseLevel,new ChooseLevelView(SaveManager.getInstance().getSave(whichSave).getHowManyLevelsAvailable()));
+            sceneMap.put(currScene.ChooseLevel,new ChooseLevelScene(SaveManager.getInstance().getSave(whichSave).getHowManyLevelsAvailable()));
         }
         else if(sceneName==currScene.Win){
             sceneMap.remove(currScene.Win);

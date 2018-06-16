@@ -1,4 +1,3 @@
-C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\ChooseLevelView.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Collidable.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\EnemyView.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\SceneManager.java
@@ -7,17 +6,18 @@ C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Level.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\MainMenu.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Enemy.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Player.java
-C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\WinView.java
+C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\LoseScene.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\FlagView.java
-C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\LoseView.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\SaveManager.java
+C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\ChooseLevelScene.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\ChooseSaveScene.java
-C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\InstructionsView.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\GameScene.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Save.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Platform.java
+C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\WinScene.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\MovingEnemy.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Flag.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\PlayerView.java
+C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\InstructiuonsScene.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\PlatformView.java
 C:\Users\Admin\IdeaProjects\Wizard&Shrooms\src\main\java\sample\Main.java

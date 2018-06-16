@@ -67,19 +67,20 @@ public class GameScene extends Scene {
                     }
                 }
             }
-                if (myPlayerView.getPlayer().getJumpingFrameIndex() != 1)
                     for (PlatformView platform : platformViews) { //if he didnt just start jumping check if he is colliding with platform
                         platform.update(cameraViewVelocity.getX());
-                        if (!collidingwithPlatform && (x = myPlayerView.getPlayer().isColliding(platform.getPlatform())) == UP) {
-                            if (myPlayerView.getPlayer().isInAir()) {
-                                myPlayerView.getPlayer().setVelocity(myPlayerView.getPlayer().getVelocity().getX(), 0); //jezeli spada na platforme to
-                                myPlayerView.setVelocityView(new Point2D(myPlayerView.getVelocityView().getX(), 0));
+                        if (myPlayerView.getPlayer().getJumpingFrameIndex() != 1 && myPlayerView.getPlayer().getJumpingFrameIndex() != 2) {//we do this avoid colliding with your own platform
+                            if (!collidingwithPlatform && (x = myPlayerView.getPlayer().isColliding(platform.getPlatform())) == UP) {
+                                if (myPlayerView.getPlayer().isInAir()) {
+                                    myPlayerView.getPlayer().setVelocity(myPlayerView.getPlayer().getVelocity().getX(), 0); //jezeli spada na platforme to
+                                    myPlayerView.setVelocityView(new Point2D(myPlayerView.getVelocityView().getX(), 0));
+                                }
+                                // }
+                                myPlayerView.getPlayer().setJumping(false);
+                                myPlayerView.getPlayer().setInAir(false);
+                                myPlayerView.getPlayer().setJumpingFrameIndex(0); //he ain't jumping anymore
+                                collidingwithPlatform = true;
                             }
-                            // }
-                            myPlayerView.getPlayer().setJumping(false);
-                            myPlayerView.getPlayer().setInAir(false);
-                            myPlayerView.getPlayer().setJumpingFrameIndex(0); //he ain't jumping anymore
-                            collidingwithPlatform = true;
                         }
                     }
                 for (int i = 0; i < enemies.size(); ++i) {
@@ -100,6 +101,7 @@ public class GameScene extends Scene {
                     SceneManager.getInstance().changeScene(SceneManager.currScene.Win);
 
                 }
+                //
                 if (!collidingwithPlatform) {
                     myPlayerView.getPlayer().setVelocity(myPlayerView.getPlayer().getVelocity().getX(), myPlayerView.getPlayer().getVelocity().getY() + 0.2); //pseudograwitacja
                     myPlayerView.setVelocityView(new Point2D(myPlayerView.getVelocityView().getX(), myPlayerView.getVelocityView().getY() + 0.2));
